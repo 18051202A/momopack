@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MomoPack &mdash; Premium Food Container Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<!-- ── Page Loader ──────────────────────────── -->
+<div id="loader">
+  <div class="loader-logo">Momo<span>Pack</span></div>
+</div>
+
+<!-- ── Navbar ───────────────────────────────── -->
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="#hero" class="nav-logo">Momo<span>Pack</span></a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero" class="active">Home</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#whyus">Why Us</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#inquiry" class="nav-cta btn">Request Offer</a></li>
+    </ul>
+
+    <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ─────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="container hero-content">
+    <div class="hero-badge">B2B Food Packaging Manufacturer</div>
+
+    <h1 class="hero-title">
+      Premium Food<br />Containers for<br /><em>Every Business</em>
+    </h1>
+
+    <p class="hero-sub">
+      Scalable, sustainable, and certified food packaging solutions &mdash;
+      manufactured for restaurants, retailers, and distributors worldwide.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#products" class="btn btn-primary">Browse Catalog</a>
+      <a href="#inquiry" class="btn btn-hero-outline">Request an Offer</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">50M+</div>
+      <div class="hero-stat-label">Units / Year</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">40+</div>
+      <div class="hero-stat-label">Countries</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">200+</div>
+      <div class="hero-stat-label">SKUs</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">15yr</div>
+      <div class="hero-stat-label">Experience</div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ── Products ──────────────────────────────── -->
+<section id="products">
+  <div class="container">
+
+    <div class="products-header">
+      <div>
+        <span class="section-label reveal">Product Categories</span>
+        <h2 class="section-title reveal reveal-delay-1">What We Manufacture</h2>
+        <p class="section-sub reveal reveal-delay-2">
+          Six product lines built for the food industry &mdash; each available
+          for bulk orders, custom sizing, and private label.
+        </p>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <a href="#inquiry" class="btn btn-outline">Request Full Catalog &rarr;</a>
+      </div>
+    </div>
+
+    <div class="categories-grid">
+
+      <div class="cat-card reveal">
+        <div class="cat-img-wrap">
+          <img src="Category images/FoodContainers.png" alt="Food Containers" />
+          <div class="cat-overlay">
+            <a href="#inquiry" class="cat-cta-btn">Inquire Now &rarr;</a>
+          </div>
+        </div>
+        <div class="cat-body">
+          <h3 class="cat-name">Food Containers</h3>
+          <p class="cat-desc">Bowls, boxes, and multi-compartment containers in PP, PET, and eco-friendly materials for every food service need.</p>
+        </div>
+      </div>
+
+      <div class="cat-card reveal reveal-delay-1">
+        <div class="cat-img-wrap">
+          <img src="Category images/Hygenie.png" alt="Hygiene" />
+          <div class="cat-overlay">
+            <a href="#inquiry" class="cat-cta-btn">Inquire Now &rarr;</a>
+          </div>
+        </div>
+        <div class="cat-body">
+          <h3 class="cat-name">Hygiene</h3>
+          <p class="cat-desc">Gloves, wipes, tissue rolls, and sanitary disposables for professional kitchens, catering, and food retail.</p>
+        </div>
+      </div>
+
+      <div class="cat-card reveal reveal-delay-2">
+        <div class="cat-img-wrap">
+          <img src="Category images/Accessories.png" alt="Accessories" />
+          <div class="cat-overlay">
+            <a href="#inquiry" class="cat-cta-btn">Inquire Now &rarr;</a>
+          </div>
+        </div>
+        <div class="cat-body">
+          <h3 class="cat-name">Accessories</h3>
+          <p class="cat-desc">Cutlery sets, chopsticks, sauce cups, and condiment packaging to complete any food service offering.</p>
+        </div>
+      </div>
+
+      <div class="cat-card reveal">
+        <div class="cat-img-wrap">
+          <img src="Category images/Cups.png" alt="Cups" />
+          <div class="cat-overlay">
+            <a href="#inquiry" class="cat-cta-btn">Inquire Now &rarr;</a>
+          </div>
+        </div>
+        <div class="cat-body">
+          <h3 class="cat-name">Cups</h3>
+          <p class="cat-desc">Cold and hot beverage cups in multiple sizes &mdash; clear, white, and custom-printed for cafes, restaurants, and retail.</p>
+        </div>
+      </div>
+
+      <div class="cat-card reveal reveal-delay-1">
+        <div class="cat-img-wrap">
+          <img src="Category images/Bags.png" alt="Bags" />
+          <div class="cat-overlay">
+            <a href="#inquiry" class="cat-cta-btn">Inquire Now &rarr;</a>
+          </div>
+        </div>
+        <div class="cat-body">
+          <h3 class="cat-name">Bags</h3>
+          <p class="cat-desc">Kraft paper carrier bags and plastic take-away bags in all sizes, with flat or twisted handle options.</p>
+        </div>
+      </div>
+
+      <div class="cat-card cat-card--soon reveal reveal-delay-2">
+        <div class="cat-img-wrap cat-img-placeholder">
+          <div class="cat-coming-soon">
+            <span class="coming-soon-badge">Coming Soon</span>
+            <p>Images being prepared</p>
+          </div>
+        </div>
+        <div class="cat-body">
+          <h3 class="cat-name">Plates &amp; Trays</h3>
+          <p class="cat-desc">Flat and sectioned plates, serving trays, and display platters for catering, retail packaging, and food presentation.</p>
+        </div>
+      </div>
+
+    </div><!-- /categories-grid -->
+  </div>
+</section>
+
+<!-- ── About ──────────────────────────────────── -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+
+      <div class="about-visual reveal">
+        <div class="about-img-main">
+          <img src="Header image/Heder image.png" alt="Our products on display" />
+        </div>
+        <div class="about-float-card">
+          <div class="float-icon">&#127981;</div>
+          <div>
+            <div class="float-num">ISO 9001</div>
+            <div class="float-label">Certified Manufacturer</div>
+          </div>
+        </div>
+        <div class="about-second-float">
+          <div class="float-num">15 Years</div>
+          <div class="float-label">Industry Experience</div>
+        </div>
+      </div>
+
+      <div>
+        <span class="section-label reveal">About Us</span>
+        <h2 class="section-title reveal reveal-delay-1">Built for Businesses That Demand Quality</h2>
+        <p class="section-sub reveal reveal-delay-2">
+          MomoPack was founded to bridge the gap between mass-market packaging and the
+          high standards that modern food businesses require. We manufacture, we listen,
+          and we deliver.
+        </p>
+
+        <div class="value-list">
+          <div class="value-item reveal reveal-delay-1">
+            <div class="value-icon">&#127981;</div>
+            <div class="value-text">
+              <h4>Food-Grade Certified Materials</h4>
+              <p>All materials comply with FDA, EU 10/2011, and local food-contact regulations. Your end consumer&rsquo;s safety is our baseline.</p>
+            </div>
+          </div>
+          <div class="value-item reveal reveal-delay-2">
+            <div class="value-icon">&#128200;</div>
+            <div class="value-text">
+              <h4>Scalable Production Capacity</h4>
+              <p>From a first trial order to millions of units per month &mdash; our production lines adapt to your business growth.</p>
+            </div>
+          </div>
+          <div class="value-item reveal reveal-delay-3">
+            <div class="value-icon">&#127758;</div>
+            <div class="value-text">
+              <h4>Custom Branding &amp; Private Label</h4>
+              <p>Add your logo, colors, and unique design. We offer full custom-mold and print services for branded packaging.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Why Us ─────────────────────────────────── -->
+<section id="whyus">
+  <div class="container" style="text-align: center;">
+    <span class="section-label reveal">Why MomoPack</span>
+    <h2 class="section-title reveal reveal-delay-1" style="margin-inline: auto;">What Sets Us Apart</h2>
+    <p class="section-sub reveal reveal-delay-2" style="margin-inline: auto; text-align: center;">
+      We&rsquo;re not just a supplier &mdash; we&rsquo;re a manufacturing partner committed to your operational success.
+    </p>
+
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">&#128230;</div>
+        <h3>Bulk &amp; Custom Orders</h3>
+        <p>MOQs from 3,000 units with flexible custom sizing, color, and mold options for every product line.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon">&#9989;</div>
+        <h3>Rigorous QC Process</h3>
+        <p>In-house quality labs with every batch tested for leakage, temperature tolerance, and food-contact safety.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon">&#128666;</div>
+        <h3>Fast Global Shipping</h3>
+        <p>Sea and air freight coordination with experienced logistics partners across 40+ countries.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-icon">&#127807;</div>
+        <h3>Sustainable Options</h3>
+        <p>Eco-friendly and compostable lines made from RPET, bagasse, and bioplastics to meet your ESG goals.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">&#128101;</div>
+        <h3>Dedicated Account Manager</h3>
+        <p>Every B2B client gets a single point of contact from first inquiry through to repeat orders.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon">&#128260;</div>
+        <h3>Private Label Ready</h3>
+        <p>White-label and custom-brand packaging with in-house print design and mold tooling services.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Certifications ────────────────────────── -->
+<section id="certifications">
+  <div class="container">
+    <div style="text-align:center;">
+      <span class="section-label reveal">Quality Assurance</span>
+      <h2 class="section-title reveal reveal-delay-1" style="margin-inline:auto;">Our Certifications</h2>
+      <p class="section-sub reveal reveal-delay-2" style="margin-inline:auto;text-align:center;">
+        Every product we manufacture is independently tested and certified.
+        Click any certificate to view the full document.
+      </p>
+    </div>
+
+    <div class="certs-grid">
+
+      <div class="cert-card reveal" data-cert="Certifications/1.jpg">
+        <div class="cert-thumb">
+          <img src="Certifications/1.jpg" alt="FSC Chain of Custody Certificate" />
+          <div class="cert-zoom">&#128269;</div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-issuer">DIN CERTCO / TÜV Rheinland</div>
+          <div class="cert-name">FSC Chain of Custody</div>
+          <div class="cert-validity">Valid: 2025 &ndash; 2030</div>
+        </div>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-1" data-cert="Certifications/2.jpg">
+        <div class="cert-thumb">
+          <img src="Certifications/2.jpg" alt="TÜV Test Report — Paper Packaging" />
+          <div class="cert-zoom">&#128269;</div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-issuer">TÜV Thüringen China</div>
+          <div class="cert-name">Test Report &mdash; Paper Packaging</div>
+          <div class="cert-validity">Issued: 03.2024</div>
+        </div>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-2" data-cert="Certifications/3.jpg">
+        <div class="cert-thumb">
+          <img src="Certifications/3.jpg" alt="TÜV Test Report — Paper Boxes & Bowls" />
+          <div class="cert-zoom">&#128269;</div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-issuer">TÜV Thüringen China</div>
+          <div class="cert-name">Test Report &mdash; Paper Boxes &amp; Bowls</div>
+          <div class="cert-validity">Issued: 12.2025</div>
+        </div>
+      </div>
+
+      <div class="cert-card reveal" data-cert="Certifications/4.jpg">
+        <div class="cert-thumb">
+          <img src="Certifications/4.jpg" alt="TÜV Test Report — Plastic Cutlery" />
+          <div class="cert-zoom">&#128269;</div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-issuer">TÜV Thüringen China</div>
+          <div class="cert-name">Test Report &mdash; Plastic Cutlery</div>
+          <div class="cert-validity">Issued: 02.2025</div>
+        </div>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-1" data-cert="Certifications/5.jpg">
+        <div class="cert-thumb">
+          <img src="Certifications/5.jpg" alt="TÜV Test Report — Plastic Plates" />
+          <div class="cert-zoom">&#128269;</div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-issuer">TÜV Thüringen China</div>
+          <div class="cert-name">Test Report &mdash; Plastic Plates</div>
+          <div class="cert-validity">Issued: 01.2026</div>
+        </div>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-2" data-cert="Certifications/6.jpg">
+        <div class="cert-thumb">
+          <img src="Certifications/6.jpg" alt="TÜV Test Report — Plastic Containers" />
+          <div class="cert-zoom">&#128269;</div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-issuer">TÜV Thüringen China</div>
+          <div class="cert-name">Test Report &mdash; Plastic Containers</div>
+          <div class="cert-validity">Issued: 06.2022</div>
+        </div>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-1" data-cert="Certifications/7.jpg">
+        <div class="cert-thumb">
+          <img src="Certifications/7.jpg" alt="TÜV Test Report — PP Products" />
+          <div class="cert-zoom">&#128269;</div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-issuer">TÜV Thüringen China</div>
+          <div class="cert-name">Test Report &mdash; PP Products</div>
+          <div class="cert-validity">Issued: 05.2022</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Lightbox ───────────────────────────────── -->
+<div id="certLightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Certificate viewer">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+  <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous">&#8249;</button>
+  <button class="lightbox-next" id="lightboxNext" aria-label="Next">&#8250;</button>
+  <div class="lightbox-inner">
+    <img id="lightboxImg" src="" alt="Certificate" />
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+  <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+</div>
+
+<!-- ── Inquiry ────────────────────────────────── -->
+<section id="inquiry">
+  <div class="container">
+    <div class="inquiry-grid">
+
+      <div class="inquiry-info">
+        <span class="section-label reveal">Get In Touch</span>
+        <h2 class="section-title reveal reveal-delay-1">Request an Offer</h2>
+        <p class="section-sub reveal reveal-delay-2">
+          Tell us about your needs and our team will come back with a tailored
+          quotation within 1 business day.
+        </p>
+
+        <div class="contact-items">
+          <div class="contact-item reveal reveal-delay-1">
+            <div class="contact-icon">&#128231;</div>
+            <div>
+              <strong>sales@momopack.com</strong>
+              <span>B2B Sales Inquiries</span>
+            </div>
+          </div>
+          <div class="contact-item reveal reveal-delay-2">
+            <div class="contact-icon">&#128222;</div>
+            <div>
+              <strong>+1 (800) 555-0192</strong>
+              <span>Mon &ndash; Fri, 8am &ndash; 6pm EST</span>
+            </div>
+          </div>
+          <div class="contact-item reveal reveal-delay-3">
+            <div class="contact-icon">&#127758;</div>
+            <div>
+              <strong>Global Headquarters</strong>
+              <span>123 Industrial Park, Manufacturing City</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inquiry-form reveal reveal-delay-1">
+        <form id="inquiryForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name *</label>
+              <input type="text" name="firstname" placeholder="John" required />
+            </div>
+            <div class="form-group">
+              <label>Last Name *</label>
+              <input type="text" name="lastname" placeholder="Smith" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Business Email *</label>
+            <input type="email" name="email" placeholder="john@company.com" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Company Name *</label>
+              <input type="text" name="company" placeholder="Acme Corp" required />
+            </div>
+            <div class="form-group">
+              <label>Country *</label>
+              <select name="country" required>
+                <option value="">Select country</option>
+                <option>United States</option>
+                <option>United Kingdom</option>
+                <option>Germany</option>
+                <option>France</option>
+                <option>Australia</option>
+                <option>Canada</option>
+                <option>UAE</option>
+                <option>Saudi Arabia</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Product Interest</label>
+              <select name="product">
+                <option value="">Select category</option>
+                <option>Meal Prep Containers</option>
+                <option>Bowls &amp; Lids</option>
+                <option>Trays</option>
+                <option>Rectangular Containers</option>
+                <option>Eco / Compostable Line</option>
+                <option>Custom / Private Label</option>
+                <option>Multiple Categories</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Estimated Monthly Volume</label>
+              <select name="volume">
+                <option value="">Select range</option>
+                <option>Under 10,000 pcs</option>
+                <option>10,000 &ndash; 50,000 pcs</option>
+                <option>50,000 &ndash; 200,000 pcs</option>
+                <option>200,000 &ndash; 1M pcs</option>
+                <option>1M+ pcs</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Message / Specifications</label>
+            <textarea name="message" placeholder="Describe your product needs, special requirements, custom branding requests, etc."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary form-submit">Send Inquiry &rarr;</button>
+          <p class="form-note">We respond within 1 business day. No commitment required.</p>
+        </form>
+
+        <div class="form-success" id="formSuccess">
+          <div class="success-icon">&#10003;</div>
+          <h3>Inquiry Received!</h3>
+          <p>Thank you &mdash; our sales team will reach out within 1 business day.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">Momo<span>Pack</span></div>
+        <p>Premium food container manufacturing for businesses worldwide. Quality, scale, and reliability &mdash; since 2009.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="#products">Meal Prep Containers</a></li>
+          <li><a href="#products">Bowls &amp; Lids</a></li>
+          <li><a href="#products">Trays</a></li>
+          <li><a href="#products">Eco Line</a></li>
+          <li><a href="#products">Custom &amp; Private Label</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#whyus">Why MomoPack</a></li>
+          <li><a href="#inquiry">Certifications</a></li>
+          <li><a href="#inquiry">Sustainability</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#inquiry">Request an Offer</a></li>
+          <li><a href="mailto:sales@momopack.com">sales@momopack.com</a></li>
+          <li><a href="tel:+18005550192">+1 (800) 555-0192</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; 2025 MomoPack. All rights reserved.</span>
+      <span><a href="#">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="#">Terms of Use</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
