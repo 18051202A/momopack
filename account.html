@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account &mdash; MomoPack Member Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/account.css" />
+<!-- Supabase SDK + client -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="js/supabase.js"></script>
+<script>
+  /* Redirect already-authenticated users straight to the dashboard */
+  (async () => {
+    window._supabase = supabaseClient;
+    const { data: { session } } = await window._supabase.auth.getSession();
+    if (session) window.location.href = 'dashboard.html';
+  })();
+</script>
+</head>
+<body>
+
+<!-- ── Page Loader ──────────────────────────── -->
+<div id="loader">
+  <div class="loader-logo">Momo<span>Pack</span></div>
+</div>
+
+<!-- ── Navbar ───────────────────────────────── -->
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">Momo<span>Pack</span></a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#hero">Home</a></li>
+      <li><a href="index.html#products">Products</a></li>
+      <li><a href="index.html#about">About Us</a></li>
+      <li><a href="index.html#inquiry" class="nav-cta btn">Request Offer</a></li>
+    </ul>
+
+    <div class="nav-right">
+    <div class="nav-extras">
+      <!-- Language Selector -->
+      <div class="nav-lang" id="langSelector">
+        <button class="lang-btn" id="langBtn" aria-expanded="false" aria-label="Select language">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span class="lang-code" id="langCurrent">EN</span>
+          <svg class="lang-chevron" xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="lang-dropdown" id="langDropdown" role="listbox">
+          <a href="#" class="lang-option active" data-lang="en" data-code="EN" role="option">&#127468;&#127463; English</a>
+          <a href="#" class="lang-option" data-lang="fr" data-code="FR" role="option">&#127467;&#127479; Fran&ccedil;ais</a>
+          <a href="#" class="lang-option" data-lang="de" data-code="DE" role="option">&#127465;&#127466; Deutsch</a>
+          <a href="#" class="lang-option" data-lang="es" data-code="ES" role="option">&#127466;&#127480; Espa&ntilde;ol</a>
+          <a href="#" class="lang-option" data-lang="ar" data-code="AR" role="option">&#127480;&#127462; &#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</a>
+          <a href="#" class="lang-option" data-lang="zh" data-code="ZH" role="option">&#127464;&#127475; &#20013;&#25991;</a>
+        </div>
+      </div>
+
+      <!-- Back to site -->
+      <a href="index.html" class="acc-nav-back">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Main Site
+      </a>
+    </div>
+
+    <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+    </div><!-- /nav-right -->
+  </div>
+</nav>
+
+<!-- ── Account Hero ──────────────────────────── -->
+<section id="acc-hero">
+  <div class="acc-blob acc-blob-1"></div>
+  <div class="acc-blob acc-blob-2"></div>
+  <div class="acc-blob acc-blob-3"></div>
+  <div class="acc-dots"></div>
+
+  <div class="container">
+    <div class="acc-hero-content">
+      <div class="acc-hero-badge">Member Portal</div>
+      <h1 class="acc-hero-title">
+        Your MomoPack<br /><em>Business Account</em>
+      </h1>
+      <p class="acc-hero-sub">
+        Sign in to access exclusive B2B pricing, track your
+        orders, manage documents, and streamline your partnership with us.
+      </p>
+    </div>
+  </div>
+
+  <div class="acc-hero-scroll">
+    <div class="acc-scroll-line"></div>
+    Get Started
+  </div>
+</section>
+
+<!-- ── Auth Section ──────────────────────────── -->
+<section id="auth">
+  <div class="container">
+    <div class="auth-wrapper">
+
+      <!-- Left: Benefits panel -->
+      <div class="auth-info">
+        <h2 class="auth-info-title">Benefits of an account</h2>
+        <p class="auth-info-sub">Join thousands of B2B buyers who manage their MomoPack partnership from a single dashboard. With an account, you can:</p>
+
+        <ul class="auth-benefit-list">
+          <li class="auth-benefit-item">
+            <div class="benefit-check">&#10003;</div>
+            Real-time order tracking &amp; status updates
+          </li>
+          <li class="auth-benefit-item">
+            <div class="benefit-check">&#10003;</div>
+            Access exclusive volume pricing tiers
+          </li>
+          <li class="auth-benefit-item">
+            <div class="benefit-check">&#10003;</div>
+            Download invoices, certificates &amp; specs
+          </li>
+          <li class="auth-benefit-item">
+            <div class="benefit-check">&#10003;</div>
+            Submit custom quote requests instantly
+          </li>
+          <li class="auth-benefit-item">
+            <div class="benefit-check">&#10003;</div>
+            Save favorite products for quick reorder
+          </li>
+          <li class="auth-benefit-item">
+            <div class="benefit-check">&#10003;</div>
+            Priority support &amp; dedicated account manager
+          </li>
+        </ul>
+
+        <div class="auth-info-divider"></div>
+
+        <div class="auth-trust">
+          <span class="auth-trust-icon">&#128274;</span>
+          SSL encrypted &mdash; your data is always safe
+        </div>
+      </div>
+
+      <!-- Right: Auth card -->
+      <div class="auth-card">
+
+        <!-- Tab switcher -->
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-tab="login" id="tabLogin">Sign In</button>
+        </div>
+
+        <!-- ── Login Form ── -->
+        <form class="auth-form active" id="loginForm">
+          <h2 class="auth-form-title">Welcome back</h2>
+          <p class="auth-form-sub">Sign in to your MomoPack business account.</p>
+
+          <div class="form-group">
+            <label>Business Email *</label>
+            <input type="email" name="email" placeholder="you@company.com" required />
+          </div>
+
+          <div class="form-group">
+            <label>Password *</label>
+            <input type="password" name="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required />
+          </div>
+
+          <a href="#" class="auth-forgot">Forgot your password?</a>
+
+          <div class="auth-check-row">
+            <input type="checkbox" id="rememberMe" name="remember" />
+            <label for="rememberMe" style="font-size:.82rem;color:var(--gray-500);font-weight:400;margin:0;letter-spacing:0;">Remember me on this device</label>
+          </div>
+
+          <p class="auth-error" id="loginError" style="display:none;color:#c0392b;font-size:.84rem;margin-bottom:.8rem;"></p>
+          <button type="submit" class="btn btn-primary auth-submit">Sign In to Account &rarr;</button>
+
+        </form>
+
+        <!-- Success state (hidden) -->
+        <div class="auth-success" id="authSuccess">
+          <div class="auth-success-icon">&#10003;</div>
+          <h3>You&rsquo;re all set!</h3>
+          <p>Your MomoPack account is ready. A confirmation email has been sent to your inbox.<br /><br />
+          Our team will activate your B2B pricing tier within 1 business day.</p>
+          <a href="index.html" class="btn btn-primary" style="margin-top:1.5rem;display:inline-flex;">Back to Main Site</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Account Features ──────────────────────── -->
+<section id="acc-features">
+  <div class="container">
+    <div class="acc-features-intro">
+      <span class="section-label reveal">What You Get</span>
+      <h2 class="section-title reveal reveal-delay-1">Everything in one dashboard</h2>
+      <p class="section-sub reveal reveal-delay-2">
+        Your MomoPack account gives you full control over your B2B purchasing
+        experience &mdash; from first order to long-term partnership.
+      </p>
+    </div>
+
+    <div class="acc-features-grid">
+
+      <div class="acc-feature-card reveal">
+        <div class="acc-feat-icon">&#128230;</div>
+        <h3 class="acc-feat-title">Order Management</h3>
+        <p class="acc-feat-desc">Track every shipment in real-time. View order history, statuses, estimated delivery, and download packing lists &mdash; all in one place.</p>
+      </div>
+
+      <div class="acc-feature-card reveal reveal-delay-1">
+        <div class="acc-feat-icon">&#127991;</div>
+        <h3 class="acc-feat-title">Exclusive B2B Pricing</h3>
+        <p class="acc-feat-desc">Unlock volume-based discount tiers automatically based on your order history. See your personalised price list before you even request a quote.</p>
+      </div>
+
+      <div class="acc-feature-card reveal reveal-delay-2">
+        <div class="acc-feat-icon">&#128196;</div>
+        <h3 class="acc-feat-title">Document Center</h3>
+        <p class="acc-feat-desc">Instantly download invoices, certificates of conformity, TÜV test reports, and product specification sheets at any time.</p>
+      </div>
+
+      <div class="acc-feature-card reveal">
+        <div class="acc-feat-icon">&#9889;</div>
+        <h3 class="acc-feat-title">Fast Custom Quotes</h3>
+        <p class="acc-feat-desc">Submit a tailored quote request with your saved company details pre-filled. Get a response from your account manager within 4 hours.</p>
+      </div>
+
+      <div class="acc-feature-card reveal reveal-delay-1">
+        <div class="acc-feat-icon">&#11088;</div>
+        <h3 class="acc-feat-title">Product Favourites</h3>
+        <p class="acc-feat-desc">Bookmark products, build curated lists, and share them with your procurement team. Reorder with one click from your saved selections.</p>
+      </div>
+
+      <div class="acc-feature-card reveal reveal-delay-2">
+        <div class="acc-feat-icon">&#128101;</div>
+        <h3 class="acc-feat-title">Dedicated Support</h3>
+        <p class="acc-feat-desc">Account holders get a named B2B manager as a single point of contact, plus priority response via live chat, email, and phone.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA Banner ────────────────────────────── -->
+<section id="acc-cta">
+  <div class="container acc-cta-content reveal">
+    <h2>Ready to streamline your packaging supply?</h2>
+    <p>
+      Join over 2,000 active business accounts already using the MomoPack portal
+      to manage orders, access pricing, and reduce admin overhead.
+    </p>
+    <div class="acc-cta-btns">
+      <a href="index.html#inquiry" class="btn btn-cta-outline-white">Talk to Sales</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">Momo<span>Pack</span></div>
+        <p>Premium food container manufacturing for businesses worldwide. Quality, scale, and reliability &mdash; since 2009.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="index.html#products">Food Containers</a></li>
+          <li><a href="index.html#products">Cups &amp; Lids</a></li>
+          <li><a href="index.html#products">Bags</a></li>
+          <li><a href="index.html#products">Eco Line</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="index.html#about">About Us</a></li>
+          <li><a href="index.html#whyus">Why MomoPack</a></li>
+          <li><a href="index.html#certifications">Certifications</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Account</h4>
+        <ul>
+          <li><a href="#" id="footerSignIn">Sign In</a></li>
+          <li><a href="index.html#inquiry">Request an Offer</a></li>
+          <li><a href="mailto:sales@momopack.com">sales@momopack.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; 2025 MomoPack. All rights reserved.</span>
+      <span><a href="#">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="#">Terms of Use</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── Loader ── */
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  setTimeout(() => loader.classList.add('hidden'), 700);
+});
+
+/* ── Navbar scroll state ── */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* ── Mobile menu ── */
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+document.querySelectorAll('.nav-links a').forEach(a =>
+  a.addEventListener('click', () =>
+    document.getElementById('navLinks').classList.remove('open')
+  )
+);
+
+/* ── Language selector ── */
+(function () {
+  const langSelector = document.getElementById('langSelector');
+  const langBtn      = document.getElementById('langBtn');
+  const langCurrent  = document.getElementById('langCurrent');
+  if (!langBtn) return;
+
+  langBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = langSelector.classList.toggle('open');
+    langBtn.setAttribute('aria-expanded', isOpen);
+  });
+
+  document.querySelectorAll('.lang-option').forEach(opt => {
+    opt.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      langCurrent.textContent = opt.dataset.code;
+      langSelector.classList.remove('open');
+      langBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!langSelector.contains(e.target)) {
+      langSelector.classList.remove('open');
+      langBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      langSelector.classList.remove('open');
+      langBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
+
+/* ── Auth tabs ── */
+(function () {
+  const tabs  = document.querySelectorAll('.auth-tab');
+  const forms = document.querySelectorAll('.auth-form');
+
+  function switchTab(tabName) {
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabName));
+    forms.forEach(f => f.classList.toggle('active', f.id === tabName + 'Form'));
+  }
+
+  tabs.forEach(tab => tab.addEventListener('click', () => switchTab(tab.dataset.tab)));
+
+  document.getElementById('footerSignIn').addEventListener('click', (e) => {
+    e.preventDefault();
+    switchTab('login');
+    document.getElementById('auth').scrollIntoView({ behavior: 'smooth' });
+  });
+})();
+
+/* ── Supabase Login ── */
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const email    = e.target.email.value.trim();
+  const password = e.target.password.value.trim();
+  const btn      = e.target.querySelector('.auth-submit');
+  const errEl    = document.getElementById('loginError');
+
+  if (!email || !password) {
+    errEl.textContent = 'Please fill in all fields.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  btn.disabled    = true;
+  btn.textContent = 'Signing in…';
+  errEl.style.display = 'none';
+
+  const { error } = await window._supabase.auth.signInWithPassword({ email, password });
+
+  if (error) {
+    errEl.textContent = error.message || 'Invalid email or password.';
+    errEl.style.display = 'block';
+    btn.disabled    = false;
+    btn.textContent = 'Sign In to Account →';
+  } else {
+    window.location.href = 'dashboard.html';
+  }
+});
+
+/* ── Scroll reveal ── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+</script>
+
+</body>
+</html>

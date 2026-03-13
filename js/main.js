@@ -145,6 +145,45 @@ document.querySelectorAll('.cat-card:not(.cat-card--soon)').forEach(card => {
   });
 })();
 
+/* ── Language selector ───────────────────────── */
+(function () {
+  const langSelector = document.getElementById('langSelector');
+  const langBtn      = document.getElementById('langBtn');
+  const langCurrent  = document.getElementById('langCurrent');
+  if (!langBtn) return;
+
+  langBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = langSelector.classList.toggle('open');
+    langBtn.setAttribute('aria-expanded', isOpen);
+  });
+
+  document.querySelectorAll('.lang-option').forEach(opt => {
+    opt.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      langCurrent.textContent = opt.dataset.code;
+      langSelector.classList.remove('open');
+      langBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!langSelector.contains(e.target)) {
+      langSelector.classList.remove('open');
+      langBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      langSelector.classList.remove('open');
+      langBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
+
 /* ── Inquiry form submit ─────────────────────── */
 document.getElementById('inquiryForm').addEventListener('submit', function (e) {
   e.preventDefault();

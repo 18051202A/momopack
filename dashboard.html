@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard &mdash; MomoPack Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+
+  <!-- Supabase SDK + client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/supabase.js"></script>
+  <script>
+    /* Auth guard — redirect to login if no session */
+    (async () => {
+      window._supabase = supabaseClient;
+      const { data: { session } } = await window._supabase.auth.getSession();
+      if (!session) window.location.href = 'account.html';
+      else {
+        window._userEmail = session.user.email;
+      }
+    })();
+  </script>
+</head>
+<body class="dash-body">
+
+<!-- ── Page Loader ──────────────────────────── -->
+<div id="loader">
+  <div class="loader-logo">Momo<span>Pack</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SIDEBAR
+══════════════════════════════════════════ -->
+<div class="dash-layout">
+
+  <aside class="dash-sidebar" id="dashSidebar">
+    <div class="sidebar-logo">
+      <a href="index.html" class="nav-logo">Momo<span>Pack</span></a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <span class="sidebar-nav-label">Main</span>
+      <a href="#overview"   class="sidebar-link active" data-section="overview">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Overview
+      </a>
+      <a href="#orders" class="sidebar-link" data-section="orders">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Orders
+      </a>
+      <a href="#pricing" class="sidebar-link" data-section="pricing">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Pricing
+      </a>
+      <a href="#documents" class="sidebar-link" data-section="documents">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        Documents
+      </a>
+      <a href="#quotes" class="sidebar-link" data-section="quotes">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Quote Requests
+      </a>
+
+      <span class="sidebar-nav-label" style="margin-top:1.4rem;">Account</span>
+      <a href="#favourites" class="sidebar-link" data-section="favourites">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Favourites
+      </a>
+      <a href="#support" class="sidebar-link" data-section="support">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Support
+      </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <a href="index.html" class="sidebar-bottom-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Main Site
+      </a>
+      <button class="sidebar-bottom-link sidebar-signout" id="signOutBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════════════════════
+       MAIN CONTENT
+  ══════════════════════════════════════════ -->
+  <div class="dash-main">
+
+    <!-- Top bar -->
+    <header class="dash-topbar">
+      <button class="topbar-menu-btn" id="sidebarToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="topbar-greeting" id="topbarGreeting">Welcome back</div>
+      <div class="topbar-right">
+        <div class="topbar-user" id="topbarUser">
+          <div class="topbar-avatar" id="topbarAvatar">M</div>
+          <span id="topbarEmail">Loading…</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── OVERVIEW SECTION ─────────────────── -->
+    <section class="dash-section active" id="sec-overview">
+
+      <div class="dash-section-head">
+        <h1 class="dash-page-title">Dashboard Overview</h1>
+        <p class="dash-page-sub">Here's a snapshot of your MomoPack account.</p>
+      </div>
+
+      <!-- Stat cards -->
+      <div class="dash-stats-row">
+        <div class="dash-stat-card">
+          <div class="stat-icon stat-icon--blue">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">—</div>
+            <div class="stat-label">Active Orders</div>
+          </div>
+        </div>
+        <div class="dash-stat-card">
+          <div class="stat-icon stat-icon--green">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">—</div>
+            <div class="stat-label">Saved Products</div>
+          </div>
+        </div>
+        <div class="dash-stat-card">
+          <div class="stat-icon stat-icon--orange">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">—</div>
+            <div class="stat-label">Documents</div>
+          </div>
+        </div>
+        <div class="dash-stat-card">
+          <div class="stat-icon stat-icon--purple">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">—</div>
+            <div class="stat-label">Open Quotes</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick actions + account manager -->
+      <div class="dash-overview-grid">
+
+        <!-- Quick actions -->
+        <div class="dash-card">
+          <h2 class="dash-card-title">Quick Actions</h2>
+          <div class="quick-actions">
+            <button class="quick-action-btn" onclick="showSection('orders')">
+              <div class="qa-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              </div>
+              <div class="qa-text">
+                <strong>Track Orders</strong>
+                <span>View live shipment status</span>
+              </div>
+            </button>
+            <button class="quick-action-btn" onclick="showSection('quotes')">
+              <div class="qa-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <div class="qa-text">
+                <strong>Request Quote</strong>
+                <span>Get pricing in 4 hours</span>
+              </div>
+            </button>
+            <button class="quick-action-btn" onclick="showSection('documents')">
+              <div class="qa-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <div class="qa-text">
+                <strong>Documents</strong>
+                <span>Invoices &amp; certificates</span>
+              </div>
+            </button>
+            <button class="quick-action-btn" onclick="showSection('pricing')">
+              <div class="qa-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <div class="qa-text">
+                <strong>My Pricing</strong>
+                <span>Volume tier &amp; discounts</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Account manager -->
+        <div class="dash-card dash-card--accent">
+          <h2 class="dash-card-title dash-card-title--light">Your Account Manager</h2>
+          <div class="manager-profile">
+            <div class="manager-avatar">AM</div>
+            <div class="manager-info">
+              <div class="manager-name">Assigned on activation</div>
+              <div class="manager-role">B2B Account Manager</div>
+            </div>
+          </div>
+          <div class="manager-contacts">
+            <a href="mailto:sales@momopack.com" class="manager-contact-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email Manager
+            </a>
+            <a href="index.html#inquiry" class="manager-contact-btn manager-contact-btn--outline">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.43 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.08 6.08l.97-.97a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7a2 2 0 0 1 1.73 2.01z"/></svg>
+              Request Call
+            </a>
+          </div>
+          <div class="manager-note">
+            Priority response &mdash; within 4 business hours
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Recent activity placeholder -->
+      <div class="dash-card" style="margin-top:1.6rem;">
+        <h2 class="dash-card-title">Recent Activity</h2>
+        <div class="empty-state">
+          <div class="empty-icon">&#128230;</div>
+          <p>No activity yet. Your orders and requests will appear here once your account is activated.</p>
+          <a href="index.html#inquiry" class="btn btn-primary" style="margin-top:1rem;font-size:.88rem;">Contact Sales to Get Started</a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ── ORDERS SECTION ───────────────────── -->
+    <section class="dash-section" id="sec-orders">
+      <div class="dash-section-head">
+        <h1 class="dash-page-title">Orders</h1>
+        <p class="dash-page-sub">Track your shipments and view order history.</p>
+      </div>
+      <div class="dash-card">
+        <div class="section-toolbar">
+          <div class="toolbar-filters">
+            <button class="filter-pill active">All</button>
+            <button class="filter-pill">In Transit</button>
+            <button class="filter-pill">Processing</button>
+            <button class="filter-pill">Delivered</button>
+          </div>
+          <a href="index.html#inquiry" class="btn btn-primary" style="font-size:.85rem;padding:.6em 1.4em;">+ New Order</a>
+        </div>
+        <div class="empty-state">
+          <div class="empty-icon">&#128666;</div>
+          <p>No orders yet. Once your first order is placed, you'll be able to track everything here in real time.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PRICING SECTION ──────────────────── -->
+    <section class="dash-section" id="sec-pricing">
+      <div class="dash-section-head">
+        <h1 class="dash-page-title">My Pricing</h1>
+        <p class="dash-page-sub">Your personalised volume discount tiers.</p>
+      </div>
+
+      <div class="dash-card">
+        <div class="pricing-tier-banner">
+          <div class="tier-badge">Standard Tier</div>
+          <p>Your pricing tier is assigned based on order volume. Contact your account manager to discuss volume upgrades.</p>
+        </div>
+
+        <table class="pricing-table">
+          <thead>
+            <tr>
+              <th>Monthly Volume</th>
+              <th>Tier</th>
+              <th>Discount</th>
+              <th>Lead Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Under 10,000 pcs</td>
+              <td><span class="tier-label tier-label--standard">Standard</span></td>
+              <td>List price</td>
+              <td>4&ndash;6 weeks</td>
+            </tr>
+            <tr>
+              <td>10,000 &ndash; 50,000 pcs</td>
+              <td><span class="tier-label tier-label--silver">Silver</span></td>
+              <td>Up to 8% off</td>
+              <td>3&ndash;5 weeks</td>
+            </tr>
+            <tr>
+              <td>50,000 &ndash; 200,000 pcs</td>
+              <td><span class="tier-label tier-label--gold">Gold</span></td>
+              <td>Up to 15% off</td>
+              <td>2&ndash;4 weeks</td>
+            </tr>
+            <tr>
+              <td>200,000+ pcs</td>
+              <td><span class="tier-label tier-label--platinum">Platinum</span></td>
+              <td>Negotiated rate</td>
+              <td>Priority</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="pricing-note">Exact discount rates are confirmed by your account manager and reflected in your personalised price list.</p>
+      </div>
+    </section>
+
+    <!-- ── DOCUMENTS SECTION ────────────────── -->
+    <section class="dash-section" id="sec-documents">
+      <div class="dash-section-head">
+        <h1 class="dash-page-title">Documents</h1>
+        <p class="dash-page-sub">Invoices, certificates, and product specification sheets.</p>
+      </div>
+
+      <div class="dash-card">
+        <div class="section-toolbar">
+          <div class="toolbar-filters">
+            <button class="filter-pill active">All</button>
+            <button class="filter-pill">Invoices</button>
+            <button class="filter-pill">Certificates</button>
+            <button class="filter-pill">Spec Sheets</button>
+          </div>
+        </div>
+        <div class="empty-state">
+          <div class="empty-icon">&#128196;</div>
+          <p>No documents available yet. Your invoices and compliance documents will be uploaded here once orders are processed.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── QUOTE REQUESTS SECTION ───────────── -->
+    <section class="dash-section" id="sec-quotes">
+      <div class="dash-section-head">
+        <h1 class="dash-page-title">Quote Requests</h1>
+        <p class="dash-page-sub">Submit and track custom quote requests.</p>
+      </div>
+
+      <div class="dash-card">
+        <div class="section-toolbar">
+          <div class="toolbar-filters">
+            <button class="filter-pill active">All</button>
+            <button class="filter-pill">Pending</button>
+            <button class="filter-pill">Responded</button>
+          </div>
+          <a href="index.html#inquiry" class="btn btn-primary" style="font-size:.85rem;padding:.6em 1.4em;">+ New Quote</a>
+        </div>
+        <div class="empty-state">
+          <div class="empty-icon">&#9889;</div>
+          <p>No quote requests yet. Submit a request and your account manager will respond within 4 business hours.</p>
+          <a href="index.html#inquiry" class="btn btn-primary" style="margin-top:1rem;font-size:.88rem;">Submit Quote Request</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FAVOURITES SECTION ───────────────── -->
+    <section class="dash-section" id="sec-favourites">
+      <div class="dash-section-head">
+        <h1 class="dash-page-title">Favourites</h1>
+        <p class="dash-page-sub">Your saved products for quick reorder.</p>
+      </div>
+
+      <div class="dash-card">
+        <div class="empty-state">
+          <div class="empty-icon">&#11088;</div>
+          <p>You haven't saved any products yet. Browse our catalogue and bookmark items for fast reordering.</p>
+          <a href="index.html#products" class="btn btn-primary" style="margin-top:1rem;font-size:.88rem;">Browse Products</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SUPPORT SECTION ──────────────────── -->
+    <section class="dash-section" id="sec-support">
+      <div class="dash-section-head">
+        <h1 class="dash-page-title">Support</h1>
+        <p class="dash-page-sub">Get help from your dedicated account team.</p>
+      </div>
+
+      <div class="support-grid">
+        <div class="dash-card support-card">
+          <div class="support-icon">&#128231;</div>
+          <h3>Email Support</h3>
+          <p>Send a message to your account manager or the general B2B support desk.</p>
+          <a href="mailto:sales@momopack.com" class="btn btn-primary" style="margin-top:1.2rem;font-size:.88rem;">sales@momopack.com</a>
+        </div>
+        <div class="dash-card support-card">
+          <div class="support-icon">&#128222;</div>
+          <h3>Phone Support</h3>
+          <p>Speak directly with our B2B team. Available Monday&ndash;Friday, 8am&ndash;6pm EST.</p>
+          <a href="tel:+18005550192" class="btn btn-primary" style="margin-top:1.2rem;font-size:.88rem;">+1 (800) 555-0192</a>
+        </div>
+        <div class="dash-card support-card">
+          <div class="support-icon">&#128172;</div>
+          <h3>Submit a Request</h3>
+          <p>Use our inquiry form to submit a detailed support request or document issue.</p>
+          <a href="index.html#inquiry" class="btn btn-primary" style="margin-top:1.2rem;font-size:.88rem;">Open Inquiry Form</a>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /dash-main -->
+</div><!-- /dash-layout -->
+
+<script>
+/* ── Loader ── */
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  setTimeout(() => loader.classList.add('hidden'), 700);
+});
+
+/* ── Set user greeting ── */
+window.addEventListener('load', () => {
+  const email   = window._userEmail || '';
+  const handle  = email.split('@')[0] || 'there';
+  const avatar  = handle.charAt(0).toUpperCase();
+  document.getElementById('topbarGreeting').textContent = 'Welcome back, ' + handle;
+  document.getElementById('topbarEmail').textContent    = email;
+  document.getElementById('topbarAvatar').textContent   = avatar;
+});
+
+/* ── Sidebar navigation ── */
+function showSection(name) {
+  document.querySelectorAll('.dash-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+
+  const sec  = document.getElementById('sec-' + name);
+  const link = document.querySelector('.sidebar-link[data-section="' + name + '"]');
+  if (sec)  sec.classList.add('active');
+  if (link) link.classList.add('active');
+
+  /* On mobile, close sidebar after nav */
+  if (window.innerWidth < 900) {
+    document.getElementById('dashSidebar').classList.remove('open');
+  }
+}
+
+document.querySelectorAll('.sidebar-link').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    showSection(link.dataset.section);
+  });
+});
+
+/* ── Mobile sidebar toggle ── */
+document.getElementById('sidebarToggle').addEventListener('click', () => {
+  document.getElementById('dashSidebar').classList.toggle('open');
+});
+
+/* ── Filter pills (visual only for now) ── */
+document.querySelectorAll('.filter-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    pill.closest('.toolbar-filters').querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+  });
+});
+
+/* ── Sign Out ── */
+document.getElementById('signOutBtn').addEventListener('click', async () => {
+  await window._supabase.auth.signOut();
+  window.location.href = 'account.html';
+});
+</script>
+
+</body>
+</html>

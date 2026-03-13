@@ -30,9 +30,38 @@
       <li><a href="#inquiry" class="nav-cta btn">Request Offer</a></li>
     </ul>
 
+    <div class="nav-right">
+    <div class="nav-extras">
+
+      <!-- Language Selector -->
+      <div class="nav-lang" id="langSelector">
+        <button class="lang-btn" id="langBtn" aria-expanded="false" aria-label="Select language">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span class="lang-code" id="langCurrent">EN</span>
+          <svg class="lang-chevron" xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="lang-dropdown" id="langDropdown" role="listbox" aria-label="Language options">
+          <a href="#" class="lang-option active" data-lang="en" data-code="EN" role="option">&#127468;&#127463; English</a>
+          <a href="#" class="lang-option" data-lang="fr" data-code="FR" role="option">&#127467;&#127479; Fran&ccedil;ais</a>
+          <a href="#" class="lang-option" data-lang="de" data-code="DE" role="option">&#127465;&#127466; Deutsch</a>
+          <a href="#" class="lang-option" data-lang="es" data-code="ES" role="option">&#127466;&#127480; Espa&ntilde;ol</a>
+          <a href="#" class="lang-option" data-lang="ar" data-code="AR" role="option">&#127480;&#127462; &#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</a>
+          <a href="#" class="lang-option" data-lang="zh" data-code="ZH" role="option">&#127464;&#127475; &#20013;&#25991;</a>
+        </div>
+      </div>
+
+      <!-- Account Button -->
+      <a href="account.html" class="nav-account-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span class="account-btn-text">Account</span>
+      </a>
+
+    </div>
+
     <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
     </div>
+    </div><!-- /nav-right -->
   </div>
 </nav>
 
