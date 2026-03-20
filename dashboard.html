@@ -50,15 +50,15 @@
       </a>
       <a href="#orders" class="sidebar-link" data-section="orders">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-        Orders
+        Tracking
       </a>
       <a href="#pricing" class="sidebar-link" data-section="pricing">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         Pricing
       </a>
       <a href="#documents" class="sidebar-link" data-section="documents">
-        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        Documents
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Order
       </a>
       <a href="#quotes" class="sidebar-link" data-section="quotes">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -167,7 +167,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
               </div>
               <div class="qa-text">
-                <strong>Track Orders</strong>
+                <strong>Tracking</strong>
                 <span>View live shipment status</span>
               </div>
             </button>
@@ -182,11 +182,11 @@
             </button>
             <button class="quick-action-btn" onclick="showSection('documents')">
               <div class="qa-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
               </div>
               <div class="qa-text">
-                <strong>Documents</strong>
-                <span>Invoices &amp; certificates</span>
+                <strong>Place an Order</strong>
+                <span>Browse &amp; order products</span>
               </div>
             </button>
             <button class="quick-action-btn" onclick="showSection('pricing')">
@@ -240,11 +240,11 @@
 
     </section>
 
-    <!-- ── ORDERS SECTION ───────────────────── -->
+    <!-- ── TRACKING SECTION ─────────────────── -->
     <section class="dash-section" id="sec-orders">
       <div class="dash-section-head">
-        <h1 class="dash-page-title">Orders</h1>
-        <p class="dash-page-sub">Track your shipments and view order history.</p>
+        <h1 class="dash-page-title">Tracking</h1>
+        <p class="dash-page-sub">Track your shipments and view live order status.</p>
       </div>
       <div class="dash-card">
         <div class="section-toolbar">
@@ -254,11 +254,10 @@
             <button class="filter-pill">Processing</button>
             <button class="filter-pill">Delivered</button>
           </div>
-          <a href="index.html#inquiry" class="btn btn-primary" style="font-size:.85rem;padding:.6em 1.4em;">+ New Order</a>
         </div>
         <div class="empty-state">
           <div class="empty-icon">&#128666;</div>
-          <p>No orders yet. Once your first order is placed, you'll be able to track everything here in real time.</p>
+          <p>No shipments to track yet. Once your orders are dispatched, you'll be able to monitor live shipment status here.</p>
         </div>
       </div>
     </section>
@@ -317,27 +316,127 @@
       </div>
     </section>
 
-    <!-- ── DOCUMENTS SECTION ────────────────── -->
+    <!-- ── ORDER (PRODUCT CATALOGUE) SECTION ── -->
     <section class="dash-section" id="sec-documents">
       <div class="dash-section-head">
-        <h1 class="dash-page-title">Documents</h1>
-        <p class="dash-page-sub">Invoices, certificates, and product specification sheets.</p>
+        <h1 class="dash-page-title">Order</h1>
+        <p class="dash-page-sub">Browse our product catalogue and place your order.</p>
       </div>
 
-      <div class="dash-card">
+      <!-- Search & filter bar -->
+      <div class="dash-card" style="padding:1.2rem 1.6rem;">
         <div class="section-toolbar">
           <div class="toolbar-filters">
-            <button class="filter-pill active">All</button>
-            <button class="filter-pill">Invoices</button>
-            <button class="filter-pill">Certificates</button>
-            <button class="filter-pill">Spec Sheets</button>
+            <button class="filter-pill active" onclick="filterProducts('all',this)">All</button>
+            <button class="filter-pill" onclick="filterProducts('bags',this)">Bags</button>
+            <button class="filter-pill" onclick="filterProducts('boxes',this)">Boxes</button>
+            <button class="filter-pill" onclick="filterProducts('pouches',this)">Pouches</button>
+            <button class="filter-pill" onclick="filterProducts('labels',this)">Labels</button>
           </div>
-        </div>
-        <div class="empty-state">
-          <div class="empty-icon">&#128196;</div>
-          <p>No documents available yet. Your invoices and compliance documents will be uploaded here once orders are processed.</p>
+          <input id="productSearch" type="text" placeholder="Search products…" oninput="filterProducts(currentCategory,null)"
+            style="padding:.5em 1em;border:1px solid var(--border);border-radius:8px;font-size:.88rem;outline:none;width:220px;" />
         </div>
       </div>
+
+      <!-- Product grid -->
+      <div id="productGrid" class="order-product-grid">
+
+        <div class="order-product-card" data-category="bags">
+          <div class="order-product-img" style="background:#f0f4ff;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#4f6ef7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          </div>
+          <div class="order-product-info">
+            <h3 class="order-product-name">Kraft Paper Bag</h3>
+            <p class="order-product-desc">Eco-friendly kraft paper bags, custom print available. MOQ: 500 pcs.</p>
+            <div class="order-product-footer">
+              <span class="order-product-moq">MOQ 500 pcs</span>
+              <button class="btn btn-primary order-add-btn" onclick="addToCart('Kraft Paper Bag')">+ Add to Order</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-product-card" data-category="boxes">
+          <div class="order-product-img" style="background:#f0fff4;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+          </div>
+          <div class="order-product-info">
+            <h3 class="order-product-name">Rigid Gift Box</h3>
+            <p class="order-product-desc">Premium rigid setup boxes with magnetic closure. Custom sizes & finishes. MOQ: 200 pcs.</p>
+            <div class="order-product-footer">
+              <span class="order-product-moq">MOQ 200 pcs</span>
+              <button class="btn btn-primary order-add-btn" onclick="addToCart('Rigid Gift Box')">+ Add to Order</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-product-card" data-category="pouches">
+          <div class="order-product-img" style="background:#fff8f0;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3"/><rect x="2" y="7" width="20" height="14" rx="2"/></svg>
+          </div>
+          <div class="order-product-info">
+            <h3 class="order-product-name">Stand-Up Pouch</h3>
+            <p class="order-product-desc">Resealable stand-up pouches, food-grade certified. Multiple barrier options. MOQ: 1,000 pcs.</p>
+            <div class="order-product-footer">
+              <span class="order-product-moq">MOQ 1,000 pcs</span>
+              <button class="btn btn-primary order-add-btn" onclick="addToCart('Stand-Up Pouch')">+ Add to Order</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-product-card" data-category="labels">
+          <div class="order-product-img" style="background:#fdf0ff;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          </div>
+          <div class="order-product-info">
+            <h3 class="order-product-name">Custom Labels</h3>
+            <p class="order-product-desc">Die-cut labels in any shape, matte/gloss/foil finish. Full-colour digital & offset. MOQ: 1,000 pcs.</p>
+            <div class="order-product-footer">
+              <span class="order-product-moq">MOQ 1,000 pcs</span>
+              <button class="btn btn-primary order-add-btn" onclick="addToCart('Custom Labels')">+ Add to Order</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-product-card" data-category="bags">
+          <div class="order-product-img" style="background:#f0f4ff;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#4f6ef7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          </div>
+          <div class="order-product-info">
+            <h3 class="order-product-name">Non-Woven Tote Bag</h3>
+            <p class="order-product-desc">Reusable non-woven tote bags, 1–4 colour print. Great for retail & promotions. MOQ: 500 pcs.</p>
+            <div class="order-product-footer">
+              <span class="order-product-moq">MOQ 500 pcs</span>
+              <button class="btn btn-primary order-add-btn" onclick="addToCart('Non-Woven Tote Bag')">+ Add to Order</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-product-card" data-category="boxes">
+          <div class="order-product-img" style="background:#f0fff4;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+          </div>
+          <div class="order-product-info">
+            <h3 class="order-product-name">Corrugated Mailer Box</h3>
+            <p class="order-product-desc">Self-locking corrugated mailer boxes, eco-friendly materials. Custom print inside & out. MOQ: 300 pcs.</p>
+            <div class="order-product-footer">
+              <span class="order-product-moq">MOQ 300 pcs</span>
+              <button class="btn btn-primary order-add-btn" onclick="addToCart('Corrugated Mailer Box')">+ Add to Order</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Order cart summary -->
+      <div class="dash-card" id="orderCart" style="margin-top:1.6rem;display:none;">
+        <h2 class="dash-card-title">Your Order List</h2>
+        <ul id="cartItems" style="list-style:none;padding:0;margin:0 0 1rem;"></ul>
+        <div style="display:flex;gap:1rem;justify-content:flex-end;">
+          <button class="btn" style="background:transparent;border:1px solid var(--border);color:var(--text-muted);border-radius:8px;padding:.6em 1.4em;font-size:.88rem;cursor:pointer;" onclick="clearCart()">Clear</button>
+          <a href="index.html#inquiry" class="btn btn-primary" style="font-size:.88rem;padding:.6em 1.4em;">Submit Order Request</a>
+        </div>
+      </div>
+
     </section>
 
     <!-- ── QUOTE REQUESTS SECTION ───────────── -->
@@ -470,6 +569,60 @@ document.getElementById('signOutBtn').addEventListener('click', async () => {
   await window._supabase.auth.signOut();
   window.location.href = 'account.html';
 });
+
+/* ── Order page: product filter & cart ── */
+let currentCategory = 'all';
+let cart = [];
+
+function filterProducts(category, btn) {
+  currentCategory = category;
+  if (btn) {
+    btn.closest('.toolbar-filters').querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  const search = (document.getElementById('productSearch').value || '').toLowerCase();
+  document.querySelectorAll('.order-product-card').forEach(card => {
+    const matchCat  = category === 'all' || card.dataset.category === category;
+    const matchText = card.querySelector('.order-product-name').textContent.toLowerCase().includes(search) ||
+                      card.querySelector('.order-product-desc').textContent.toLowerCase().includes(search);
+    card.style.display = matchCat && matchText ? '' : 'none';
+  });
+}
+
+function addToCart(productName) {
+  const existing = cart.find(i => i.name === productName);
+  if (existing) { existing.qty++; } else { cart.push({ name: productName, qty: 1 }); }
+  renderCart();
+}
+
+function renderCart() {
+  const cartEl = document.getElementById('orderCart');
+  const listEl = document.getElementById('cartItems');
+  if (!cart.length) { cartEl.style.display = 'none'; return; }
+  cartEl.style.display = '';
+  listEl.innerHTML = cart.map(i => `
+    <li style="display:flex;justify-content:space-between;align-items:center;padding:.7rem 0;border-bottom:1px solid var(--border);">
+      <span style="font-size:.92rem;">${i.name}</span>
+      <div style="display:flex;align-items:center;gap:.7rem;">
+        <button onclick="changeQty('${i.name}',-1)" style="width:26px;height:26px;border:1px solid var(--border);border-radius:6px;background:transparent;cursor:pointer;font-size:1rem;line-height:1;">−</button>
+        <span style="min-width:20px;text-align:center;font-weight:600;">${i.qty}</span>
+        <button onclick="changeQty('${i.name}',1)"  style="width:26px;height:26px;border:1px solid var(--border);border-radius:6px;background:transparent;cursor:pointer;font-size:1rem;line-height:1;">+</button>
+      </div>
+    </li>`).join('');
+}
+
+function changeQty(name, delta) {
+  const item = cart.find(i => i.name === name);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) cart = cart.filter(i => i.name !== name);
+  renderCart();
+}
+
+function clearCart() {
+  cart = [];
+  renderCart();
+}
 </script>
 
 </body>
