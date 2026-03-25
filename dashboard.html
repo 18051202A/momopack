@@ -29,7 +29,7 @@
 
 <!-- ── Page Loader ──────────────────────────── -->
 <div id="loader">
-  <div class="loader-logo">Momo<span>Pack</span></div>
+  <div class="loader-logo"><img src="logo/vendle logo 2.png" alt="Vendle"></div>
 </div>
 
 <!-- ══════════════════════════════════════════
@@ -39,7 +39,7 @@
 
   <aside class="dash-sidebar" id="dashSidebar">
     <div class="sidebar-logo">
-      <a href="index.html" class="nav-logo">Momo<span>Pack</span></a>
+      <a href="index.html" class="nav-logo"><img src="logo/vendle logo 2.png" alt="Vendle"></a>
     </div>
 
     <nav class="sidebar-nav">
@@ -323,117 +323,33 @@
         <p class="dash-page-sub">Browse our product catalogue and place your order.</p>
       </div>
 
-      <!-- Search & filter bar -->
-      <div class="dash-card" style="padding:1.2rem 1.6rem;">
-        <div class="section-toolbar">
-          <div class="toolbar-filters">
-            <button class="filter-pill active" onclick="filterProducts('all',this)">All</button>
-            <button class="filter-pill" onclick="filterProducts('bags',this)">Bags</button>
-            <button class="filter-pill" onclick="filterProducts('boxes',this)">Boxes</button>
-            <button class="filter-pill" onclick="filterProducts('pouches',this)">Pouches</button>
-            <button class="filter-pill" onclick="filterProducts('labels',this)">Labels</button>
-          </div>
-          <input id="productSearch" type="text" placeholder="Search products…" oninput="filterProducts(currentCategory,null)"
-            style="padding:.5em 1em;border:1px solid var(--border);border-radius:8px;font-size:.88rem;outline:none;width:220px;" />
-        </div>
+      <!-- Search bar -->
+      <div class="cat-search-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="productSearch" type="text" placeholder="Search products…" oninput="renderCatalogue()" />
       </div>
 
-      <!-- Product grid -->
-      <div id="productGrid" class="order-product-grid">
+      <!-- Category tabs -->
+      <div class="cat-tabs" id="catTabs"></div>
 
-        <div class="order-product-card" data-category="bags">
-          <div class="order-product-img" style="background:#f0f4ff;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#4f6ef7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          </div>
-          <div class="order-product-info">
-            <h3 class="order-product-name">Kraft Paper Bag</h3>
-            <p class="order-product-desc">Eco-friendly kraft paper bags, custom print available. MOQ: 500 pcs.</p>
-            <div class="order-product-footer">
-              <span class="order-product-moq">MOQ 500 pcs</span>
-              <button class="btn btn-primary order-add-btn" onclick="addToCart('Kraft Paper Bag')">+ Add to Order</button>
-            </div>
-          </div>
+      <!-- Product type + variant panels -->
+      <div id="catalogueWrap">
+        <div class="cat-loading">
+          <div class="cat-spinner"></div>
+          <span>Loading products…</span>
         </div>
-
-        <div class="order-product-card" data-category="boxes">
-          <div class="order-product-img" style="background:#f0fff4;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-          </div>
-          <div class="order-product-info">
-            <h3 class="order-product-name">Rigid Gift Box</h3>
-            <p class="order-product-desc">Premium rigid setup boxes with magnetic closure. Custom sizes & finishes. MOQ: 200 pcs.</p>
-            <div class="order-product-footer">
-              <span class="order-product-moq">MOQ 200 pcs</span>
-              <button class="btn btn-primary order-add-btn" onclick="addToCart('Rigid Gift Box')">+ Add to Order</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="order-product-card" data-category="pouches">
-          <div class="order-product-img" style="background:#fff8f0;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3"/><rect x="2" y="7" width="20" height="14" rx="2"/></svg>
-          </div>
-          <div class="order-product-info">
-            <h3 class="order-product-name">Stand-Up Pouch</h3>
-            <p class="order-product-desc">Resealable stand-up pouches, food-grade certified. Multiple barrier options. MOQ: 1,000 pcs.</p>
-            <div class="order-product-footer">
-              <span class="order-product-moq">MOQ 1,000 pcs</span>
-              <button class="btn btn-primary order-add-btn" onclick="addToCart('Stand-Up Pouch')">+ Add to Order</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="order-product-card" data-category="labels">
-          <div class="order-product-img" style="background:#fdf0ff;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-          </div>
-          <div class="order-product-info">
-            <h3 class="order-product-name">Custom Labels</h3>
-            <p class="order-product-desc">Die-cut labels in any shape, matte/gloss/foil finish. Full-colour digital & offset. MOQ: 1,000 pcs.</p>
-            <div class="order-product-footer">
-              <span class="order-product-moq">MOQ 1,000 pcs</span>
-              <button class="btn btn-primary order-add-btn" onclick="addToCart('Custom Labels')">+ Add to Order</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="order-product-card" data-category="bags">
-          <div class="order-product-img" style="background:#f0f4ff;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#4f6ef7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          </div>
-          <div class="order-product-info">
-            <h3 class="order-product-name">Non-Woven Tote Bag</h3>
-            <p class="order-product-desc">Reusable non-woven tote bags, 1–4 colour print. Great for retail & promotions. MOQ: 500 pcs.</p>
-            <div class="order-product-footer">
-              <span class="order-product-moq">MOQ 500 pcs</span>
-              <button class="btn btn-primary order-add-btn" onclick="addToCart('Non-Woven Tote Bag')">+ Add to Order</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="order-product-card" data-category="boxes">
-          <div class="order-product-img" style="background:#f0fff4;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-          </div>
-          <div class="order-product-info">
-            <h3 class="order-product-name">Corrugated Mailer Box</h3>
-            <p class="order-product-desc">Self-locking corrugated mailer boxes, eco-friendly materials. Custom print inside & out. MOQ: 300 pcs.</p>
-            <div class="order-product-footer">
-              <span class="order-product-moq">MOQ 300 pcs</span>
-              <button class="btn btn-primary order-add-btn" onclick="addToCart('Corrugated Mailer Box')">+ Add to Order</button>
-            </div>
-          </div>
-        </div>
-
       </div>
 
       <!-- Order cart summary -->
-      <div class="dash-card" id="orderCart" style="margin-top:1.6rem;display:none;">
-        <h2 class="dash-card-title">Your Order List</h2>
-        <ul id="cartItems" style="list-style:none;padding:0;margin:0 0 1rem;"></ul>
-        <div style="display:flex;gap:1rem;justify-content:flex-end;">
-          <button class="btn" style="background:transparent;border:1px solid var(--border);color:var(--text-muted);border-radius:8px;padding:.6em 1.4em;font-size:.88rem;cursor:pointer;" onclick="clearCart()">Clear</button>
-          <a href="index.html#inquiry" class="btn btn-primary" style="font-size:.88rem;padding:.6em 1.4em;">Submit Order Request</a>
+      <div class="dash-card cat-cart" id="orderCart" style="display:none;">
+        <div class="cat-cart-head">
+          <h2 class="dash-card-title" style="margin:0;">Your Order List</h2>
+          <span id="cartCount" class="cat-cart-badge">0</span>
+        </div>
+        <ul id="cartItems"></ul>
+        <div class="cat-cart-actions">
+          <button class="btn cat-cart-clear" onclick="clearCart()">Clear all</button>
+          <a href="index.html#inquiry" class="btn btn-primary">Submit Order Request</a>
         </div>
       </div>
 
@@ -542,6 +458,12 @@ function showSection(name) {
   if (window.innerWidth < 900) {
     document.getElementById('dashSidebar').classList.remove('open');
   }
+
+  /* Load catalogue on first visit to Order section */
+  if (name === 'documents' && !_catalogueLoaded) {
+    _catalogueLoaded = true;
+    loadCatalogue();
+  }
 }
 
 document.querySelectorAll('.sidebar-link').forEach(link => {
@@ -570,59 +492,250 @@ document.getElementById('signOutBtn').addEventListener('click', async () => {
   window.location.href = 'account.html';
 });
 
-/* ── Order page: product filter & cart ── */
-let currentCategory = 'all';
+/* ══════════════════════════════════════════
+   ORDER / CATALOGUE  —  Supabase-powered
+══════════════════════════════════════════ */
+let _allProducts    = [];   // [{id, name, category, material, variants:[…]}]
+let _activeCategory = null;
+let _catalogueLoaded = false;
 let cart = [];
 
-function filterProducts(category, btn) {
-  currentCategory = category;
-  if (btn) {
-    btn.closest('.toolbar-filters').querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-  }
-  const search = (document.getElementById('productSearch').value || '').toLowerCase();
-  document.querySelectorAll('.order-product-card').forEach(card => {
-    const matchCat  = category === 'all' || card.dataset.category === category;
-    const matchText = card.querySelector('.order-product-name').textContent.toLowerCase().includes(search) ||
-                      card.querySelector('.order-product-desc').textContent.toLowerCase().includes(search);
-    card.style.display = matchCat && matchText ? '' : 'none';
-  });
+/* ── Colour dot helper ── */
+const COLOR_MAP = {
+  white:       '#f5f5f5',
+  black:       '#222222',
+  transparent: 'linear-gradient(135deg,#e0e0e0 25%,#fff 50%,#e0e0e0 75%)',
+};
+function colorDot(color) {
+  const key = (color || '').toLowerCase();
+  const bg  = COLOR_MAP[key] || '#ccc';
+  const border = key === 'white' ? '1.5px solid #ddd' : '1.5px solid transparent';
+  return `<span class="color-dot" style="background:${bg};border:${border};" title="${color}"></span>`;
 }
 
-function addToCart(productName) {
-  const existing = cart.find(i => i.name === productName);
-  if (existing) { existing.qty++; } else { cart.push({ name: productName, qty: 1 }); }
+/* ── 1. Fetch from Supabase ── */
+async function loadCatalogue() {
+  const wrap = document.getElementById('catalogueWrap');
+
+  /* Wait for supabase client to be available (auth guard is async) */
+  let attempts = 0;
+  while (!window._supabase && attempts < 20) {
+    await new Promise(r => setTimeout(r, 150));
+    attempts++;
+  }
+  if (!window._supabase) {
+    wrap.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><p>Session not ready. Please refresh the page.</p></div>`;
+    return;
+  }
+
+  try {
+    console.log('[Catalogue] Fetching from Supabase…', window._supabase);
+
+    const { data: products, error: pErr } = await window._supabase.from('products').select('*');
+    console.log('[Catalogue] products:', products, 'error:', pErr);
+
+    const { data: variants, error: vErr } = await window._supabase.from('product_variants').select('*');
+    console.log('[Catalogue] variants:', variants, 'error:', vErr);
+
+    if (pErr) throw pErr;
+    if (vErr) throw vErr;
+
+    /* Attach variants to each product
+       Note: column is "product_it" (not product_id) in the DB */
+    const productIdKey = variants?.[0]
+      ? (Object.keys(variants[0]).find(k => k.startsWith('product_i')) || 'product_id')
+      : 'product_id';
+    console.log('[Catalogue] variant foreign key column:', productIdKey);
+
+    _allProducts = (products || []).map(p => ({
+      ...p,
+      variants: (variants || []).filter(v => v[productIdKey] === p.id),
+    }));
+
+    console.log('[Catalogue] _allProducts:', _allProducts);
+    renderCatTabs();
+    renderCatalogue();
+  } catch (err) {
+    console.error('Catalogue load error:', err);
+    wrap.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><p>Could not load products: ${err.message || err}. Please refresh or contact support.</p></div>`;
+  }
+}
+
+/* ── 2. Category tabs ── */
+function renderCatTabs() {
+  const categories = [...new Set(_allProducts.map(p => p.category).filter(Boolean))];
+  _activeCategory  = categories[0] || null;
+
+  const tabsEl = document.getElementById('catTabs');
+  tabsEl.innerHTML = categories.map((cat, i) =>
+    `<button class="cat-tab${i === 0 ? ' active' : ''}" data-cat="${cat}" onclick="setCategory('${cat}',this)">${cat}</button>`
+  ).join('');
+}
+
+function setCategory(cat, btn) {
+  _activeCategory = cat;
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderCatalogue();
+}
+
+/* ── 3. Main render ── */
+function renderCatalogue() {
+  const search = (document.getElementById('productSearch')?.value || '').toLowerCase();
+  const wrap   = document.getElementById('catalogueWrap');
+
+  const products = _allProducts.filter(p => {
+    const matchCat  = !_activeCategory || p.category === _activeCategory;
+    const matchText = !search ||
+      p.name.toLowerCase().includes(search) ||
+      (p.material || '').toLowerCase().includes(search) ||
+      p.variants.some(v =>
+        (v.sku   || '').toLowerCase().includes(search) ||
+        (v.color || '').toLowerCase().includes(search) ||
+        (v.size  || '').toLowerCase().includes(search));
+    return matchCat && matchText;
+  });
+
+  if (!products.length) {
+    wrap.innerHTML = `<div class="empty-state"><div class="empty-icon">📦</div><p>No products found.</p></div>`;
+    return;
+  }
+
+  wrap.innerHTML = products.map(p => renderProductBlock(p)).join('');
+}
+
+/* ── 4. Product block ── */
+function renderProductBlock(product) {
+  const variants = product.variants;
+  const cartCount = variants.filter(v => cart.find(i => i.variantId === v.id)).length;
+
+  // Group variants by color, preserve insertion order
+  const byColor = {};
+  variants.forEach(v => {
+    const key = v.color || 'Other';
+    if (!byColor[key]) byColor[key] = [];
+    byColor[key].push(v);
+  });
+
+  // Sort sizes within each colour naturally (500ml < 750ml < 1000ml …)
+  Object.values(byColor).forEach(arr =>
+    arr.sort((a, b) => parseInt(a.size) - parseInt(b.size))
+  );
+
+  const colorRows = Object.entries(byColor).map(([color, cvariants]) => {
+    const cards = cvariants.map(v => {
+      const inCart = cart.find(i => i.variantId === v.id);
+      const moq    = v.qty_per_box ? `MOQ ${v.qty_per_box} pcs` : '';
+      return `<div class="vc-card${inCart ? ' vc-card--selected' : ''}">
+        <div class="vc-card-img">
+          <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        </div>
+        <div class="vc-card-body">
+          <p class="vc-card-name">${product.name} <span class="vc-card-size">· ${v.size}</span></p>
+          <p class="vc-card-sku">${v.sku}</p>
+          <div class="vc-card-color">${colorDot(color)}<span>${color}</span></div>
+        </div>
+        <div class="vc-card-footer">
+          ${moq ? `<span class="vc-card-moq">${moq}</span>` : ''}
+          <button class="vc-card-btn${inCart ? ' vc-card-btn--added' : ''}"
+            onclick="toggleVariant('${v.id}','${product.name}','${color}','${v.size}','${v.sku}')">
+            ${inCart ? '✓ Added' : '+ Add'}
+          </button>
+        </div>
+      </div>`;
+    }).join('');
+
+    return `<div class="vc-color-row">
+      <div class="vc-cards">${cards}</div>
+    </div>`;
+  }).join('');
+
+  const moqInfo = variants[0]
+    ? `${variants[0].qty_per_box} pcs/box · ${variants[0].cartons_per_pallet} ctn/pallet`
+    : '';
+
+  return `<div class="pblock${cartCount ? ' pblock--selected' : ''}" id="pblock-${product.id}">
+    <div class="pblock-header">
+      <div class="pblock-title-row">
+        <h3 class="pblock-name">${product.name}</h3>
+        <div class="pblock-tags">
+          ${product.material ? `<span class="cat-tag cat-tag--mat">${product.material}</span>` : ''}
+          ${moqInfo          ? `<span class="cat-tag cat-tag--count">${moqInfo}</span>`         : ''}
+        </div>
+      </div>
+      ${cartCount ? `<span class="cat-selected-badge">${cartCount} selected</span>` : ''}
+    </div>
+    <div class="pblock-body">${colorRows}</div>
+  </div>`;
+}
+
+/* ── 5. Cart ── */
+function toggleVariant(variantId, productName, color, size, sku) {
+  const idx = cart.findIndex(i => i.variantId === variantId);
+  if (idx > -1) {
+    cart.splice(idx, 1);
+  } else {
+    cart.push({ variantId, label: `${productName} — ${color} / ${size}`, sku, qty: 1 });
+  }
+  renderCatalogue();
   renderCart();
 }
 
 function renderCart() {
-  const cartEl = document.getElementById('orderCart');
-  const listEl = document.getElementById('cartItems');
+  const cartEl  = document.getElementById('orderCart');
+  const listEl  = document.getElementById('cartItems');
+  const countEl = document.getElementById('cartCount');
   if (!cart.length) { cartEl.style.display = 'none'; return; }
   cartEl.style.display = '';
+  countEl.textContent  = cart.length;
   listEl.innerHTML = cart.map(i => `
-    <li style="display:flex;justify-content:space-between;align-items:center;padding:.7rem 0;border-bottom:1px solid var(--border);">
-      <span style="font-size:.92rem;">${i.name}</span>
-      <div style="display:flex;align-items:center;gap:.7rem;">
-        <button onclick="changeQty('${i.name}',-1)" style="width:26px;height:26px;border:1px solid var(--border);border-radius:6px;background:transparent;cursor:pointer;font-size:1rem;line-height:1;">−</button>
-        <span style="min-width:20px;text-align:center;font-weight:600;">${i.qty}</span>
-        <button onclick="changeQty('${i.name}',1)"  style="width:26px;height:26px;border:1px solid var(--border);border-radius:6px;background:transparent;cursor:pointer;font-size:1rem;line-height:1;">+</button>
+    <li class="cart-item">
+      <div class="cart-item-info">
+        <span class="cart-item-name">${i.label}</span>
+        <span class="cart-item-sku">SKU: ${i.sku}</span>
       </div>
+      <div class="cart-item-qty">
+        <button onclick="changeQty('${i.variantId}',-1)">−</button>
+        <span>${i.qty}</span>
+        <button onclick="changeQty('${i.variantId}',1)">+</button>
+      </div>
+      <button class="cart-item-remove" onclick="removeFromCart('${i.variantId}')">✕</button>
     </li>`).join('');
 }
 
-function changeQty(name, delta) {
-  const item = cart.find(i => i.name === name);
+function changeQty(variantId, delta) {
+  const item = cart.find(i => i.variantId === variantId);
   if (!item) return;
-  item.qty += delta;
-  if (item.qty <= 0) cart = cart.filter(i => i.name !== name);
+  item.qty = Math.max(1, item.qty + delta);
+  renderCart();
+}
+
+function removeFromCart(variantId) {
+  cart = cart.filter(i => i.variantId !== variantId);
+  renderCatalogue();
   renderCart();
 }
 
 function clearCart() {
   cart = [];
+  renderCatalogue();
   renderCart();
 }
+
+/* ── 6. Boot when Order section is opened ── */
+document.querySelectorAll('.sidebar-link[data-section="documents"]').forEach(link => {
+  link.addEventListener('click', () => {
+    if (!_catalogueLoaded) { _catalogueLoaded = true; loadCatalogue(); }
+  });
+});
+
+/* Also trigger if Order section is already active on load */
+window.addEventListener('load', () => {
+  if (document.getElementById('sec-documents')?.classList.contains('active')) {
+    _catalogueLoaded = true;
+    loadCatalogue();
+  }
+});
 </script>
 
 </body>
