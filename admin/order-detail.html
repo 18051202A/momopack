@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Detail — MomoPack Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../js/supabase.js"></script>
+  <script>
+    (async () => {
+      window._sb = supabaseClient;
+      const { data: { session } } = await window._sb.auth.getSession();
+      if (!session) { window.location.href = '../account.html'; return; }
+      const { data: profile } = await window._sb.from('users').select('full_name, role').eq('id', session.user.id).single();
+      if (!profile || profile.role !== 'admin') { window.location.href = '../dashboard.html'; return; }
+      window._adminName  = profile.full_name || session.user.email;
+      window._adminEmail = session.user.email;
+    })();
+  </script>
+</head>
+<body>
+
+<div id="loader"><div class="loader-logo"><img src="../logo/vendle logo 2.png" alt="MomoPack"></div></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-logo">
+      <a href="../index.html"><img src="../logo/vendle logo 2.png" alt="MomoPack"></a>
+      <div class="sidebar-admin-badge">&#9632; Admin Portal</div>
+    </div>
+    <nav class="sidebar-nav">
+      <span class="sidebar-nav-label">Menu</span>
+      <a href="dashboard.html" class="sidebar-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </a>
+      <a href="orders.html" class="sidebar-link active">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Orders
+      </a>
+      <a href="clients.html" class="sidebar-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Clients
+      </a>
+      <a href="products.html" class="sidebar-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+        Products
+      </a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="../dashboard.html" class="sidebar-bottom-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Client Portal
+      </a>
+      <button class="sidebar-bottom-link sidebar-signout" id="signOutBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <button class="topbar-menu-btn" id="sidebarToggle"><span></span><span></span><span></span></button>
+      <span class="topbar-title">
+        <a href="orders.html" style="color:var(--gray-500);text-decoration:none;font-weight:400;">Orders</a>
+        <span style="margin:0 .4rem;color:var(--gray-300);">/</span>
+        <span id="topbarOrderId">Order Detail</span>
+      </span>
+      <div class="topbar-right">
+        <div class="topbar-user">
+          <div class="topbar-avatar" id="topbarAvatar">A</div>
+          <span class="topbar-email" id="topbarEmail"></span>
+          <span class="admin-badge">Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="admin-page" id="pageContent" style="display:none;">
+
+      <!-- Client info + Status -->
+      <div class="page-head">
+        <div class="page-head-left">
+          <h1 class="page-title" id="detailOrderId">Order</h1>
+          <p class="page-sub" id="detailDate"></p>
+        </div>
+        <a href="orders.html" class="btn btn-outline btn-sm no-print">← Back to Orders</a>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-bottom:1.4rem;" class="detail-grid-top">
+        <!-- Client card -->
+        <div class="admin-card" style="margin-bottom:0;">
+          <h2 class="card-title" style="margin-bottom:1.2rem;">Client</h2>
+          <div class="detail-field">
+            <div class="detail-label">Name</div>
+            <div class="detail-value" id="clientName">—</div>
+          </div>
+          <div class="detail-field">
+            <div class="detail-label">Email</div>
+            <div class="detail-value" id="clientEmail">—</div>
+          </div>
+          <div style="margin-top:1rem;">
+            <a id="clientDetailLink" href="#" class="btn btn-outline btn-sm">View Client Profile</a>
+          </div>
+        </div>
+
+        <!-- Status + tracking -->
+        <div class="admin-card" style="margin-bottom:0;">
+          <h2 class="card-title" style="margin-bottom:1.2rem;">Order Status</h2>
+          <div class="detail-field">
+            <div class="detail-label">Status</div>
+            <select class="admin-select" id="statusSelect" onchange="updateStatus()">
+              <option value="pending">Pending</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="processing">Processing</option>
+              <option value="shipped">Shipped</option>
+              <option value="delivered">Delivered</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+          <div class="detail-field">
+            <div class="detail-label">Tracking Number</div>
+            <div class="input-row">
+              <input class="admin-input" type="text" id="trackingInput" placeholder="e.g. 1Z999AA10123456784" />
+              <button class="btn btn-primary btn-sm" onclick="saveTracking()">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order items -->
+      <div class="admin-card">
+        <h2 class="card-title" style="margin-bottom:1.2rem;">Order Items</h2>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Variant</th>
+                <th>Qty</th>
+                <th>Unit Price</th>
+                <th>Line Total</th>
+              </tr>
+            </thead>
+            <tbody id="itemsBody">
+              <tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--gray-500);">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="text-align:right;margin-top:1.2rem;font-size:1.05rem;font-weight:700;color:var(--gray-800);">
+          Total: <span id="orderTotal">—</span>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="admin-card">
+        <div class="card-head">
+          <h2 class="card-title">Notes</h2>
+          <button class="btn btn-primary btn-sm" onclick="saveNotes()">Save Notes</button>
+        </div>
+        <textarea class="admin-textarea" id="notesField" placeholder="Internal order notes…"></textarea>
+      </div>
+
+      <!-- Invoice -->
+      <div class="admin-card" id="invoiceCard">
+        <h2 class="card-title" style="margin-bottom:1.2rem;">Invoice</h2>
+        <div id="invoiceStatus"></div>
+      </div>
+
+    </div><!-- /admin-page -->
+
+    <!-- ── PRINT INVOICE TEMPLATE (hidden, print-only) ── -->
+    <div id="printInvoice" class="print-only" style="padding:2rem;max-width:800px;margin:0 auto;font-family:Inter,sans-serif;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2rem;border-bottom:2px solid #1b4332;padding-bottom:1.5rem;">
+        <div>
+          <div style="font-size:1.8rem;font-weight:800;color:#1b4332;">MOMO Pack</div>
+          <div style="color:#6b7a72;font-size:.9rem;margin-top:.3rem;">Golden Jagger Kft.</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:1.4rem;font-weight:700;color:#1a2318;">INVOICE</div>
+          <div style="color:#6b7a72;font-size:.85rem;margin-top:.4rem;" id="printInvoiceId"></div>
+          <div style="color:#6b7a72;font-size:.85rem;" id="printInvoiceDate"></div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem;">
+        <div>
+          <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#6b7a72;margin-bottom:.5rem;">Bill To</div>
+          <div style="font-weight:600;font-size:.95rem;" id="printClientName"></div>
+          <div style="color:#6b7a72;font-size:.88rem;" id="printClientEmail"></div>
+        </div>
+        <div>
+          <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#6b7a72;margin-bottom:.5rem;">From</div>
+          <div style="font-weight:600;font-size:.95rem;">MOMO Pack / Golden Jagger Kft.</div>
+          <div style="color:#6b7a72;font-size:.88rem;">sales@momopack.com</div>
+        </div>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:.875rem;margin-bottom:2rem;">
+        <thead>
+          <tr style="background:#f1f3f2;">
+            <th style="text-align:left;padding:.6rem .8rem;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;">Product</th>
+            <th style="text-align:left;padding:.6rem .8rem;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;">Variant</th>
+            <th style="text-align:right;padding:.6rem .8rem;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;">Qty</th>
+            <th style="text-align:right;padding:.6rem .8rem;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;">Unit Price</th>
+            <th style="text-align:right;padding:.6rem .8rem;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;">Total</th>
+          </tr>
+        </thead>
+        <tbody id="printItemsBody"></tbody>
+      </table>
+      <div style="text-align:right;font-size:1.1rem;font-weight:700;border-top:2px solid #f1f3f2;padding-top:1rem;">
+        Total: <span id="printTotal"></span>
+      </div>
+      <div style="margin-top:3rem;color:#6b7a72;font-size:.8rem;border-top:1px solid #f1f3f2;padding-top:1rem;">
+        Thank you for your business. Payment terms and bank details available upon request.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('hidden'), 500));
+document.getElementById('sidebarToggle').addEventListener('click', () => document.getElementById('adminSidebar').classList.toggle('open'));
+document.getElementById('signOutBtn').addEventListener('click', async () => { await window._sb.auth.signOut(); window.location.href = '../account.html'; });
+
+let _attempts = 0;
+(function waitForAdmin() {
+  if (window._adminEmail !== undefined || _attempts++ > 20) {
+    document.getElementById('topbarEmail').textContent  = window._adminEmail || '';
+    document.getElementById('topbarAvatar').textContent = ((window._adminName || window._adminEmail || 'A').charAt(0)).toUpperCase();
+  } else setTimeout(waitForAdmin, 100);
+})();
+
+function fmt(a, c) { if (a==null) return '—'; return new Intl.NumberFormat('en-US',{style:'currency',currency:c||'USD'}).format(a); }
+function fmtDate(d) { if (!d) return '—'; return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}); }
+
+function showToast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'show' + (isError ? ' toast--error' : '');
+  setTimeout(() => { t.className = ''; }, 3000);
+}
+
+const orderId = new URLSearchParams(location.search).get('id');
+if (!orderId) { window.location.href = 'orders.html'; }
+
+let _order = null;
+let _client = null;
+let _items = [];
+let _productMap = {};
+let _variantMap = {};
+
+async function loadOrder() {
+  let tries = 0;
+  while (!window._sb && tries++ < 20) await new Promise(r => setTimeout(r, 150));
+  const sb = window._sb; if (!sb) return;
+
+  const [{ data: order }, { data: items }] = await Promise.all([
+    sb.from('orders').select('*').eq('id', orderId).single(),
+    sb.from('order_items').select('*').eq('order_id', orderId)
+  ]);
+
+  if (!order) { showToast('Order not found.', true); return; }
+  _order = order;
+  _items = items || [];
+
+  /* Fetch client */
+  if (order.client_id) {
+    const { data: client } = await sb.from('users').select('id, full_name, email').eq('id', order.client_id).single();
+    _client = client;
+  }
+
+  /* Fetch products + variants for items */
+  const productIds = [...new Set(_items.map(i => i.product_id).filter(Boolean))];
+  const variantIds = [...new Set(_items.map(i => i.variant_id).filter(Boolean))];
+
+  const [{ data: products }, { data: variants }] = await Promise.all([
+    productIds.length ? sb.from('products').select('id, name').in('id', productIds) : { data: [] },
+    variantIds.length ? sb.from('product_variants').select('*').in('id', variantIds) : { data: [] }
+  ]);
+
+  (products || []).forEach(p => { _productMap[p.id] = p; });
+  (variants || []).forEach(v => { _variantMap[v.id] = v; });
+
+  renderOrder();
+}
+
+function renderOrder() {
+  const o = _order;
+  const c = _client;
+
+  document.getElementById('detailOrderId').textContent = 'Order #' + o.id.slice(0, 8).toUpperCase();
+  document.getElementById('topbarOrderId').textContent = '#' + o.id.slice(0, 8).toUpperCase();
+  document.getElementById('detailDate').textContent    = 'Created ' + fmtDate(o.created_at);
+
+  document.getElementById('clientName').textContent  = c?.full_name || '—';
+  document.getElementById('clientEmail').textContent = c?.email || '—';
+  if (c) document.getElementById('clientDetailLink').href = 'client-detail.html?id=' + c.id;
+
+  document.getElementById('statusSelect').value  = o.status || 'pending';
+  document.getElementById('trackingInput').value = o.tracking_number || '';
+  document.getElementById('notesField').value    = o.notes || '';
+
+  /* Items table */
+  const tbody = document.getElementById('itemsBody');
+  if (_items.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:1.5rem;color:var(--gray-500);">No items on this order.</td></tr>`;
+  } else {
+    tbody.innerHTML = _items.map(item => {
+      const product = _productMap[item.product_id];
+      const variant = _variantMap[item.variant_id];
+      const variantLabel = variant ? (variant.size || variant.name || variant.color || '') : '';
+      const lineTotal = (item.quantity || 0) * (item.unit_price || 0);
+      return `
+        <tr>
+          <td>${product?.name || '—'}</td>
+          <td>${variantLabel || '—'}</td>
+          <td>${item.quantity ?? '—'}</td>
+          <td>${fmt(item.unit_price, o.currency)}</td>
+          <td>${fmt(lineTotal, o.currency)}</td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  document.getElementById('orderTotal').textContent = fmt(o.total_amount, o.currency);
+
+  /* Invoice section */
+  renderInvoiceSection();
+
+  document.getElementById('pageContent').style.display = 'block';
+}
+
+function renderInvoiceSection() {
+  const o = _order;
+  const el = document.getElementById('invoiceStatus');
+  if (o.invoice_sent) {
+    el.innerHTML = `
+      <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+        <span class="invoice-sent-badge">✓ Invoice Sent</span>
+        <button class="btn btn-outline btn-sm" onclick="printInvoice()">Print / Download Invoice</button>
+      </div>
+    `;
+  } else {
+    el.innerHTML = `
+      <p style="font-size:.88rem;color:var(--gray-500);margin-bottom:1.2rem;">No invoice has been sent for this order yet.</p>
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap;">
+        <button class="btn btn-outline btn-sm" onclick="printInvoice()">Generate &amp; Print Invoice</button>
+        <button class="btn btn-primary btn-sm" onclick="markInvoiceSent()">Mark Invoice Sent</button>
+      </div>
+    `;
+  }
+}
+
+async function updateStatus() {
+  const status = document.getElementById('statusSelect').value;
+  const { error } = await window._sb.from('orders').update({ status, updated_at: new Date().toISOString() }).eq('id', orderId);
+  if (error) { showToast('Failed to update status.', true); return; }
+  _order.status = status;
+  showToast('Status updated to "' + status + '".');
+}
+
+async function saveTracking() {
+  const tracking_number = document.getElementById('trackingInput').value.trim();
+  const { error } = await window._sb.from('orders').update({ tracking_number, updated_at: new Date().toISOString() }).eq('id', orderId);
+  if (error) { showToast('Failed to save tracking number.', true); return; }
+  _order.tracking_number = tracking_number;
+  showToast('Tracking number saved.');
+}
+
+async function saveNotes() {
+  const notes = document.getElementById('notesField').value;
+  const { error } = await window._sb.from('orders').update({ notes, updated_at: new Date().toISOString() }).eq('id', orderId);
+  if (error) { showToast('Failed to save notes.', true); return; }
+  _order.notes = notes;
+  showToast('Notes saved.');
+}
+
+async function markInvoiceSent() {
+  const { error } = await window._sb.from('orders').update({ invoice_sent: true, updated_at: new Date().toISOString() }).eq('id', orderId);
+  if (error) { showToast('Failed to update invoice status.', true); return; }
+  _order.invoice_sent = true;
+  renderInvoiceSection();
+  showToast('Invoice marked as sent.');
+}
+
+function printInvoice() {
+  const o = _order;
+  const c = _client;
+  document.getElementById('printInvoiceId').textContent  = 'Invoice #' + o.id.slice(0, 8).toUpperCase();
+  document.getElementById('printInvoiceDate').textContent = fmtDate(new Date().toISOString());
+  document.getElementById('printClientName').textContent  = c?.full_name || '—';
+  document.getElementById('printClientEmail').textContent = c?.email || '—';
+  document.getElementById('printTotal').textContent       = fmt(o.total_amount, o.currency);
+
+  const printBody = document.getElementById('printItemsBody');
+  printBody.innerHTML = _items.map(item => {
+    const product = _productMap[item.product_id];
+    const variant = _variantMap[item.variant_id];
+    const variantLabel = variant ? (variant.size || variant.name || variant.color || '') : '';
+    const lineTotal = (item.quantity || 0) * (item.unit_price || 0);
+    return `
+      <tr>
+        <td style="padding:.6rem .8rem;border-bottom:1px solid #f1f3f2;">${product?.name || '—'}</td>
+        <td style="padding:.6rem .8rem;border-bottom:1px solid #f1f3f2;">${variantLabel || '—'}</td>
+        <td style="padding:.6rem .8rem;border-bottom:1px solid #f1f3f2;text-align:right;">${item.quantity ?? '—'}</td>
+        <td style="padding:.6rem .8rem;border-bottom:1px solid #f1f3f2;text-align:right;">${fmt(item.unit_price, o.currency)}</td>
+        <td style="padding:.6rem .8rem;border-bottom:1px solid #f1f3f2;text-align:right;">${fmt(lineTotal, o.currency)}</td>
+      </tr>
+    `;
+  }).join('');
+
+  window.print();
+}
+
+loadOrder();
+</script>
+</body>
+</html>

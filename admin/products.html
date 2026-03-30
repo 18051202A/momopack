@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products — MomoPack Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../js/supabase.js"></script>
+  <script>
+    (async () => {
+      window._sb = supabaseClient;
+      const { data: { session } } = await window._sb.auth.getSession();
+      if (!session) { window.location.href = '../account.html'; return; }
+      const { data: profile } = await window._sb.from('users').select('full_name, role').eq('id', session.user.id).single();
+      if (!profile || profile.role !== 'admin') { window.location.href = '../dashboard.html'; return; }
+      window._adminName  = profile.full_name || session.user.email;
+      window._adminEmail = session.user.email;
+    })();
+  </script>
+</head>
+<body>
+
+<div id="loader"><div class="loader-logo"><img src="../logo/vendle logo 2.png" alt="MomoPack"></div></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-logo">
+      <a href="../index.html"><img src="../logo/vendle logo 2.png" alt="MomoPack"></a>
+      <div class="sidebar-admin-badge">&#9632; Admin Portal</div>
+    </div>
+    <nav class="sidebar-nav">
+      <span class="sidebar-nav-label">Menu</span>
+      <a href="dashboard.html" class="sidebar-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </a>
+      <a href="orders.html" class="sidebar-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Orders
+      </a>
+      <a href="clients.html" class="sidebar-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Clients
+      </a>
+      <a href="products.html" class="sidebar-link active">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+        Products
+      </a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="../dashboard.html" class="sidebar-bottom-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Client Portal
+      </a>
+      <button class="sidebar-bottom-link sidebar-signout" id="signOutBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <button class="topbar-menu-btn" id="sidebarToggle"><span></span><span></span><span></span></button>
+      <span class="topbar-title">Products</span>
+      <div class="topbar-right">
+        <div class="topbar-user">
+          <div class="topbar-avatar" id="topbarAvatar">A</div>
+          <span class="topbar-email" id="topbarEmail"></span>
+          <span class="admin-badge">Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="admin-page">
+      <div class="page-head">
+        <div class="page-head-left">
+          <h1 class="page-title">Products</h1>
+          <p class="page-sub">All products and their variants.</p>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <div class="toolbar">
+          <input class="toolbar-search" type="text" id="productSearch" placeholder="Search products…" oninput="applyFilter()" />
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Variant</th>
+                <th>SKU</th>
+                <th>MOQ</th>
+              </tr>
+            </thead>
+            <tbody id="productsBody">
+              <tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--gray-500);">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('hidden'), 500));
+document.getElementById('sidebarToggle').addEventListener('click', () => document.getElementById('adminSidebar').classList.toggle('open'));
+document.getElementById('signOutBtn').addEventListener('click', async () => { await window._sb.auth.signOut(); window.location.href = '../account.html'; });
+
+let _attempts = 0;
+(function waitForAdmin() {
+  if (window._adminEmail !== undefined || _attempts++ > 20) {
+    document.getElementById('topbarEmail').textContent  = window._adminEmail || '';
+    document.getElementById('topbarAvatar').textContent = ((window._adminName || window._adminEmail || 'A').charAt(0)).toUpperCase();
+  } else setTimeout(waitForAdmin, 100);
+})();
+
+let _rows = [];
+
+async function loadProducts() {
+  let tries = 0;
+  while (!window._sb && tries++ < 20) await new Promise(r => setTimeout(r, 150));
+  const sb = window._sb; if (!sb) return;
+
+  const [{ data: products }, { data: variants }] = await Promise.all([
+    sb.from('products').select('*').order('name'),
+    sb.from('product_variants').select('*')
+  ]);
+
+  const productMap = {};
+  (products || []).forEach(p => { productMap[p.id] = p; });
+
+  /* Build flat rows: one row per variant, or one row per product if no variants */
+  _rows = [];
+  (products || []).forEach(p => {
+    const pvs = (variants || []).filter(v => {
+      const key = Object.keys(v).find(k => k.startsWith('product_i')) || 'product_id';
+      return v[key] === p.id;
+    });
+    if (pvs.length === 0) {
+      _rows.push({ product: p, variant: null });
+    } else {
+      pvs.forEach(v => _rows.push({ product: p, variant: v }));
+    }
+  });
+
+  applyFilter();
+}
+
+function applyFilter() {
+  const q = document.getElementById('productSearch').value.toLowerCase().trim();
+  const filtered = _rows.filter(r => {
+    if (!q) return true;
+    return (r.product.name || '').toLowerCase().includes(q) || (r.product.category || '').toLowerCase().includes(q);
+  });
+
+  const tbody = document.getElementById('productsBody');
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5"><div class="empty-state"><div class="empty-icon">📦</div><p>No products found.</p></div></td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(r => {
+    const v = r.variant;
+    const variantName = v ? (v.size || v.name || v.color || '—') : '—';
+    const sku  = v ? (v.sku || '—') : '—';
+    const moq  = v ? (v.moq != null ? v.moq.toLocaleString() + ' pcs' : '—') : '—';
+    return `
+      <tr>
+        <td style="font-weight:600;">${r.product.name || '—'}</td>
+        <td>${r.product.category || '—'}</td>
+        <td>${variantName}</td>
+        <td style="font-family:monospace;font-size:.8rem;">${sku}</td>
+        <td>${moq}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+loadProducts();
+</script>
+</body>
+</html>

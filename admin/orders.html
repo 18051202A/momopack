@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orders — MomoPack Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../js/supabase.js"></script>
+  <script>
+    (async () => {
+      window._sb = supabaseClient;
+      const { data: { session } } = await window._sb.auth.getSession();
+      if (!session) { window.location.href = '../account.html'; return; }
+      const { data: profile } = await window._sb.from('users').select('full_name, role').eq('id', session.user.id).single();
+      if (!profile || profile.role !== 'admin') { window.location.href = '../dashboard.html'; return; }
+      window._adminName  = profile.full_name || session.user.email;
+      window._adminEmail = session.user.email;
+    })();
+  </script>
+</head>
+<body>
+
+<div id="loader"><div class="loader-logo"><img src="../logo/vendle logo 2.png" alt="MomoPack"></div></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-logo">
+      <a href="../index.html"><img src="../logo/vendle logo 2.png" alt="MomoPack"></a>
+      <div class="sidebar-admin-badge">&#9632; Admin Portal</div>
+    </div>
+    <nav class="sidebar-nav">
+      <span class="sidebar-nav-label">Menu</span>
+      <a href="dashboard.html" class="sidebar-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </a>
+      <a href="orders.html" class="sidebar-link active">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Orders
+      </a>
+      <a href="clients.html" class="sidebar-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Clients
+      </a>
+      <a href="products.html" class="sidebar-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+        Products
+      </a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="../dashboard.html" class="sidebar-bottom-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Client Portal
+      </a>
+      <button class="sidebar-bottom-link sidebar-signout" id="signOutBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <button class="topbar-menu-btn" id="sidebarToggle"><span></span><span></span><span></span></button>
+      <span class="topbar-title">Orders</span>
+      <div class="topbar-right">
+        <div class="topbar-user">
+          <div class="topbar-avatar" id="topbarAvatar">A</div>
+          <span class="topbar-email" id="topbarEmail"></span>
+          <span class="admin-badge">Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="admin-page">
+      <div class="page-head">
+        <div class="page-head-left">
+          <h1 class="page-title">All Orders</h1>
+          <p class="page-sub">Manage and track every client order.</p>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <div class="toolbar">
+          <select class="toolbar-select" id="statusFilter" onchange="applyFilter()">
+            <option value="">All Statuses</option>
+            <option value="pending">Pending</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="processing">Processing</option>
+            <option value="shipped">Shipped</option>
+            <option value="delivered">Delivered</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+          <input class="toolbar-search" type="text" id="clientSearch" placeholder="Search client…" oninput="applyFilter()" />
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Client</th>
+                <th>Order ID</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th>Invoice Sent</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="ordersBody">
+              <tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--gray-500);">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('hidden'), 500));
+document.getElementById('sidebarToggle').addEventListener('click', () => document.getElementById('adminSidebar').classList.toggle('open'));
+document.getElementById('signOutBtn').addEventListener('click', async () => { await window._sb.auth.signOut(); window.location.href = '../account.html'; });
+
+let _attempts = 0;
+(function waitForAdmin() {
+  if (window._adminEmail !== undefined || _attempts++ > 20) {
+    document.getElementById('topbarEmail').textContent  = window._adminEmail || '';
+    document.getElementById('topbarAvatar').textContent = ((window._adminName || window._adminEmail || 'A').charAt(0)).toUpperCase();
+  } else setTimeout(waitForAdmin, 100);
+})();
+
+function statusBadge(s) { return `<span class="status-badge status--${s||'pending'}">${s||'pending'}</span>`; }
+function fmt(a, c) { if (a==null) return '—'; return new Intl.NumberFormat('en-US',{style:'currency',currency:c||'USD'}).format(a); }
+function fmtDate(d) { if (!d) return '—'; return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}); }
+
+let _allOrders = [];
+let _clientMap = {};
+
+async function loadOrders() {
+  let tries = 0;
+  while (!window._sb && tries++ < 20) await new Promise(r => setTimeout(r, 150));
+  const sb = window._sb; if (!sb) return;
+
+  const { data: orders, error } = await sb.from('orders')
+    .select('id, client_id, status, total_amount, currency, invoice_sent, created_at')
+    .order('created_at', { ascending: false });
+
+  if (error) { console.error(error); return; }
+  _allOrders = orders || [];
+
+  const ids = [...new Set(_allOrders.map(o => o.client_id).filter(Boolean))];
+  if (ids.length) {
+    const { data: clients } = await sb.from('users').select('id, full_name, email').in('id', ids);
+    (clients || []).forEach(c => { _clientMap[c.id] = { name: c.full_name || c.email, email: c.email }; });
+  }
+
+  applyFilter();
+}
+
+function applyFilter() {
+  const statusVal  = document.getElementById('statusFilter').value;
+  const searchVal  = document.getElementById('clientSearch').value.toLowerCase().trim();
+
+  const filtered = _allOrders.filter(o => {
+    const client = _clientMap[o.client_id];
+    const name = (client?.name || '').toLowerCase();
+    const matchStatus = !statusVal || o.status === statusVal;
+    const matchSearch = !searchVal || name.includes(searchVal);
+    return matchStatus && matchSearch;
+  });
+
+  const tbody = document.getElementById('ordersBody');
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">📋</div><p>No orders match the filter.</p></div></td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(o => {
+    const client = _clientMap[o.client_id];
+    return `
+      <tr>
+        <td>${client?.name || '—'}</td>
+        <td style="font-family:monospace;font-size:.8rem;">${o.id.slice(0,8)}…</td>
+        <td>${statusBadge(o.status)}</td>
+        <td>${fmt(o.total_amount, o.currency)}</td>
+        <td>${o.invoice_sent ? '<span class="invoice-sent-badge">✓ Sent</span>' : '<span style="color:var(--gray-500);font-size:.8rem;">Not sent</span>'}</td>
+        <td>${fmtDate(o.created_at)}</td>
+        <td><a href="order-detail.html?id=${o.id}" class="btn btn-outline btn-sm">View</a></td>
+      </tr>
+    `;
+  }).join('');
+}
+
+loadOrders();
+</script>
+</body>
+</html>

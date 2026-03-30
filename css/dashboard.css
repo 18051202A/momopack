@@ -178,6 +178,17 @@
   gap: .6rem;
 }
 
+.role-badge {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  background: var(--green-700);
+  color: #fff;
+  padding: .2em .6em;
+  border-radius: 100px;
+}
+
 .topbar-avatar {
   width: 34px;
   height: 34px;

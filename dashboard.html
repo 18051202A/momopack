@@ -14,14 +14,23 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="js/supabase.js"></script>
   <script>
-    /* Auth guard — redirect to login if no session */
+    /* Auth guard — redirect to login if no session, then load public.users profile */
     (async () => {
       window._supabase = supabaseClient;
       const { data: { session } } = await window._supabase.auth.getSession();
-      if (!session) window.location.href = 'account.html';
-      else {
-        window._userEmail = session.user.email;
-      }
+      if (!session) { window.location.href = 'account.html'; return; }
+
+      window._userEmail = session.user.email;
+
+      /* Fetch role + full_name from public.users */
+      const { data: profile } = await window._supabase
+        .from('users')
+        .select('full_name, role')
+        .eq('id', session.user.id)
+        .single();
+
+      window._userFullName = profile?.full_name || '';
+      window._userRole     = profile?.role || 'client';
     })();
   </script>
 </head>
@@ -353,7 +362,7 @@
         <ul id="cartItems"></ul>
         <div class="cat-cart-actions">
           <button class="btn cat-cart-clear" onclick="clearCart()">Clear all</button>
-          <a href="index.html#inquiry" class="btn btn-primary">Submit Order Request</a>
+          <button class="btn btn-primary" id="submitOrderBtn" onclick="submitOrder()">Submit Order Request</button>
         </div>
       </div>
 
@@ -464,12 +473,37 @@ window.addEventListener('load', () => {
 
 /* ── Set user greeting ── */
 window.addEventListener('load', () => {
-  const email   = window._userEmail || '';
-  const handle  = email.split('@')[0] || 'there';
-  const avatar  = handle.charAt(0).toUpperCase();
-  document.getElementById('topbarGreeting').textContent = 'Welcome back, ' + handle;
-  document.getElementById('topbarEmail').textContent    = email;
-  document.getElementById('topbarAvatar').textContent   = avatar;
+  /* Poll briefly until auth guard has populated the profile fields */
+  let attempts = 0;
+  const apply = () => {
+    const email    = window._userEmail || '';
+    const fullName = window._userFullName;
+    const role     = window._userRole;
+
+    /* If profile hasn't loaded yet, retry up to ~1 s */
+    if ((fullName === undefined || role === undefined) && attempts++ < 10) {
+      return setTimeout(apply, 100);
+    }
+
+    const displayName = (fullName && fullName.trim()) ? fullName.trim() : (email.split('@')[0] || 'there');
+    const avatar      = displayName.charAt(0).toUpperCase();
+
+    document.getElementById('topbarGreeting').textContent = 'Welcome back, ' + displayName;
+    document.getElementById('topbarEmail').textContent    = email;
+    document.getElementById('topbarAvatar').textContent   = avatar;
+
+    /* Show role badge next to email if admin */
+    if (role === 'admin') {
+      const userEl = document.getElementById('topbarUser');
+      if (userEl && !userEl.querySelector('.role-badge')) {
+        const badge = document.createElement('span');
+        badge.className   = 'role-badge';
+        badge.textContent = 'Admin';
+        userEl.appendChild(badge);
+      }
+    }
+  };
+  apply();
 });
 
 /* ── Sidebar navigation ── */
@@ -668,7 +702,7 @@ function renderProductBlock(product) {
         <div class="vc-card-footer">
           ${moq ? `<span class="vc-card-moq">${moq}</span>` : ''}
           <button class="vc-card-btn${inCart ? ' vc-card-btn--added' : ''}"
-            onclick="toggleVariant('${v.id}','${product.name}','${color}','${v.size}','${v.sku}',${v.qty_per_box || 0})">
+            onclick="toggleVariant('${v.id}','${product.id}','${product.name}','${color}','${v.size}','${v.sku}',${v.qty_per_box || 0})">
             ${inCart ? '✓ Added' : '+ Add'}
           </button>
         </div>
@@ -700,12 +734,12 @@ function renderProductBlock(product) {
 }
 
 /* ── 5. Cart ── */
-function toggleVariant(variantId, productName, color, size, sku, qtyPerBox) {
+function toggleVariant(variantId, productId, productName, color, size, sku, qtyPerBox) {
   const idx = cart.findIndex(i => i.variantId === variantId);
   if (idx > -1) {
     cart.splice(idx, 1);
   } else {
-    cart.push({ variantId, label: `${productName} — ${color} / ${size}`, sku, qty: 1, qtyPerBox });
+    cart.push({ variantId, productId, label: `${productName} — ${color} / ${size}`, sku, qty: 1, qtyPerBox });
   }
   renderCatalogue();
   renderCart();
@@ -762,6 +796,72 @@ function clearCart() {
   cart = [];
   renderCatalogue();
   renderCart();
+}
+
+async function submitOrder() {
+  if (!cart.length) return;
+
+  const btn = document.getElementById('submitOrderBtn');
+  btn.disabled    = true;
+  btn.textContent = 'Submitting…';
+
+  const sb      = window._supabase;
+  const session = (await sb.auth.getSession()).data.session;
+  if (!session) { btn.disabled = false; btn.textContent = 'Submit Order Request'; return; }
+
+  /* 1. Insert the order */
+  const { data: order, error: orderErr } = await sb
+    .from('orders')
+    .insert({ client_id: session.user.id, status: 'pending' })
+    .select('id')
+    .single();
+
+  if (orderErr) {
+    console.error('Order insert failed:', orderErr);
+    btn.disabled    = false;
+    btn.textContent = 'Submit Order Request';
+    alert('Failed to submit order. Please try again.');
+    return;
+  }
+
+  /* 2. Insert order items */
+  const items = cart.map(i => ({
+    order_id:   order.id,
+    product_id: i.productId,
+    variant_id: i.variantId,
+    quantity:   i.qty,
+    unit_price: 0
+  }));
+
+  const { error: itemsErr } = await sb.from('order_items').insert(items);
+
+  if (itemsErr) {
+    console.error('Order items insert failed:', itemsErr);
+    btn.disabled    = false;
+    btn.textContent = 'Submit Order Request';
+    alert('Order created but items could not be saved. Please contact support.');
+    return;
+  }
+
+  /* 3. Success — clear cart and show confirmation */
+  cart = [];
+  renderCatalogue();
+  document.getElementById('orderCart').style.display = 'none';
+
+  btn.disabled    = false;
+  btn.textContent = 'Submit Order Request';
+
+  const cartSection = document.getElementById('orderCart').closest('.dash-section') || document.getElementById('sec-documents');
+  const confirm = document.createElement('div');
+  confirm.className = 'dash-card';
+  confirm.style.cssText = 'margin-top:1.4rem;text-align:center;padding:2.5rem;';
+  confirm.innerHTML = `
+    <div style="font-size:2.5rem;margin-bottom:.8rem;">✅</div>
+    <h3 style="font-size:1.1rem;font-weight:700;color:var(--gray-800);margin-bottom:.5rem;">Order Submitted!</h3>
+    <p style="font-size:.9rem;color:var(--gray-500);line-height:1.7;">Your order has been received. Your account manager will be in touch within 4 business hours.</p>
+    <button class="btn btn-primary" style="margin-top:1.2rem;font-size:.88rem;" onclick="this.closest('.dash-card').remove()">Place Another Order</button>
+  `;
+  document.getElementById('orderCart').insertAdjacentElement('afterend', confirm);
 }
 
 /* ── 6. Boot when Order section is opened ── */

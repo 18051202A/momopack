@@ -13,11 +13,15 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="js/supabase.js"></script>
 <script>
-  /* Redirect already-authenticated users straight to the dashboard */
+  /* Redirect already-authenticated users based on their role */
   (async () => {
     window._supabase = supabaseClient;
     const { data: { session } } = await window._supabase.auth.getSession();
-    if (session) window.location.href = 'dashboard.html';
+    if (session) {
+      const { data: profile } = await window._supabase
+        .from('users').select('role').eq('id', session.user.id).single();
+      window.location.href = profile?.role === 'admin' ? 'admin/dashboard.html' : 'dashboard.html';
+    }
   })();
 </script>
 </head>
@@ -406,7 +410,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
   btn.textContent = 'Signing in…';
   errEl.style.display = 'none';
 
-  const { error } = await window._supabase.auth.signInWithPassword({ email, password });
+  const { data: signInData, error } = await window._supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
     errEl.textContent = error.message || 'Invalid email or password.';
@@ -414,7 +418,11 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     btn.disabled    = false;
     btn.textContent = 'Sign In to Account →';
   } else {
-    window.location.href = 'dashboard.html';
+    /* Use the session returned directly from signInWithPassword */
+    const userId = signInData.session.user.id;
+    const { data: profile } = await window._supabase
+      .from('users').select('role').eq('id', userId).single();
+    window.location.href = profile?.role === 'admin' ? 'admin/dashboard.html' : 'dashboard.html';
   }
 });
 
