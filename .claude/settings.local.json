@@ -4,7 +4,12 @@
       "mcp__claude_ai_Supabase__list_projects",
       "mcp__claude_ai_Supabase__list_tables",
       "mcp__claude_ai_Supabase__execute_sql",
-      "mcp__claude_ai_Supabase__apply_migration"
+      "mcp__claude_ai_Supabase__apply_migration",
+      "Bash(grep -i \"fullscreen\\\\|full.screen\\\\|timeline\\\\|end.*date\\\\|visible\\\\|hidden\" /c/v6/Momo/css/*.css)",
+      "Bash(xargs wc:*)",
+      "Bash(git -C /c/v6/Momo log --oneline --all)",
+      "Bash(git -C /c/v6/Momo log --name-only --oneline)",
+      "Bash(git -C /c/v6/Momo diff HEAD~5..HEAD --name-only)"
     ]
   }
 }
