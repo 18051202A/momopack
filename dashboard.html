@@ -526,6 +526,11 @@ function showSection(name) {
     _catalogueLoaded = true;
     loadCatalogue();
   }
+
+  /* Render favourites section */
+  if (name === 'favourites') {
+    renderFavourites();
+  }
 }
 
 document.querySelectorAll('.sidebar-link').forEach(link => {
@@ -561,6 +566,112 @@ let _allProducts    = [];   // [{id, name, category, material, variants:[…]}]
 let _activeCategory = null;
 let _catalogueLoaded = false;
 let cart = [];
+
+/* ── Favourites (persisted in Supabase) ── */
+let _favourites = new Set(); // Set of variant_id strings
+
+async function loadFavourites() {
+  const sb = window._supabase;
+  if (!sb) return;
+  const { data, error } = await sb.from('favourites').select('variant_id');
+  if (error) { console.error('Failed to load favourites:', error); return; }
+  _favourites = new Set((data || []).map(r => r.variant_id));
+  /* Refresh star states if catalogue is already rendered */
+  document.querySelectorAll('.fav-btn').forEach(btn => {
+    const vid = btn.dataset.vid;
+    btn.classList.toggle('fav-btn--active', _favourites.has(vid));
+    btn.title = _favourites.has(vid) ? 'Remove from Favourites' : 'Save to Favourites';
+  });
+}
+
+async function toggleFavourite(variantId) {
+  const sb = window._supabase;
+  if (!sb) return;
+
+  if (_favourites.has(variantId)) {
+    _favourites.delete(variantId);
+    await sb.from('favourites').delete().eq('variant_id', variantId);
+  } else {
+    _favourites.add(variantId);
+    const session = (await sb.auth.getSession()).data.session;
+    if (session) {
+      await sb.from('favourites').insert({ user_id: session.user.id, variant_id: variantId });
+    }
+  }
+
+  /* Refresh star button state in the catalogue without full re-render */
+  document.querySelectorAll(`.fav-btn[data-vid="${variantId}"]`).forEach(btn => {
+    btn.classList.toggle('fav-btn--active', _favourites.has(variantId));
+    btn.title = _favourites.has(variantId) ? 'Remove from Favourites' : 'Save to Favourites';
+  });
+  /* If Favourites tab is open, refresh it */
+  if (document.getElementById('sec-favourites')?.classList.contains('active')) {
+    renderFavourites();
+  }
+}
+
+function renderFavourites() {
+  const sec = document.getElementById('sec-favourites');
+  const card = sec.querySelector('.dash-card');
+  if (!_favourites.size) {
+    card.innerHTML = `<div class="empty-state">
+      <div class="empty-icon">⭐</div>
+      <p>You haven't saved any products yet. Browse our catalogue and click the star on a product to save it here.</p>
+      <button class="btn btn-primary" style="margin-top:1rem;font-size:.88rem;" onclick="showSection('documents')">Browse Products</button>
+    </div>`;
+    return;
+  }
+
+  /* Collect all variants that are favourited */
+  const favItems = [];
+  _allProducts.forEach(p => {
+    p.variants.forEach(v => {
+      if (_favourites.has(v.id)) favItems.push({ product: p, variant: v });
+    });
+  });
+
+  if (!favItems.length) {
+    card.innerHTML = `<div class="empty-state">
+      <div class="empty-icon">⭐</div>
+      <p>Your saved products will appear here once the catalogue is loaded.</p>
+      <button class="btn btn-primary" style="margin-top:1rem;font-size:.88rem;" onclick="showSection('documents')">Browse Products</button>
+    </div>`;
+    return;
+  }
+
+  card.innerHTML = `<div class="fav-grid">${favItems.map(({ product, variant }) => {
+    const color = variant.color || 'Other';
+    const inCart = cart.find(i => i.variantId === variant.id);
+    return `<div class="vc-card${inCart ? ' vc-card--selected' : ''}" style="position:relative;">
+      <div class="vc-card-img" style="position:relative;">
+        ${variant.images
+          ? `<img src="${variant.images}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;border-radius:6px;">`
+          : `<svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>`}
+        <button class="fav-btn fav-btn--active fav-btn--visible" data-vid="${variant.id}" title="Remove from Favourites" onclick="event.stopPropagation();toggleFavourite('${variant.id}');this.closest('.vc-card').remove();checkFavEmpty();">★</button>
+      </div>
+      <div class="vc-card-body">
+        <p class="vc-card-name">${product.name} <span class="vc-card-size">· ${variant.size}</span></p>
+        <p class="vc-card-sku">${variant.sku}</p>
+        <div class="vc-card-color">${colorDot(color)}<span>${color}</span></div>
+      </div>
+      <div class="vc-card-footer">
+        ${variant.qty_per_box ? `<span class="vc-card-moq">MOQ ${variant.qty_per_box} pcs</span>` : ''}
+        <button class="vc-card-btn${inCart ? ' vc-card-btn--added' : ''}"
+          data-vid="${variant.id}" data-pid="${product.id}" data-pname="${product.name.replace(/"/g,'&quot;')}" data-color="${color}" data-size="${variant.size}" data-sku="${variant.sku}" data-moq="${variant.qty_per_box||0}"
+          onclick="toggleVariantEl(this)">
+          ${inCart ? '✓ Added' : '+ Add'}
+        </button>
+      </div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+function checkFavEmpty() {
+  const sec = document.getElementById('sec-favourites');
+  if (sec.querySelector('.fav-grid') && !sec.querySelector('.fav-grid').children.length) {
+    renderFavourites();
+  }
+}
 
 /* ── Colour dot helper ── */
 const COLOR_MAP = {
@@ -617,6 +728,7 @@ async function loadCatalogue() {
     console.log('[Catalogue] _allProducts:', _allProducts);
     renderCatTabs();
     renderCatalogue();
+    loadFavourites();
   } catch (err) {
     console.error('Catalogue load error:', err);
     wrap.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><p>Could not load products: ${err.message || err}. Please refresh or contact support.</p></div>`;
@@ -693,6 +805,7 @@ function renderProductBlock(product) {
           ${v.images
             ? `<img src="${v.images}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;border-radius:6px;">`
             : `<svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>`}
+          <button class="fav-btn${_favourites.has(v.id) ? ' fav-btn--active' : ''}" data-vid="${v.id}" title="${_favourites.has(v.id) ? 'Remove from Favourites' : 'Save to Favourites'}" onclick="event.stopPropagation();toggleFavourite('${v.id}')">★</button>
         </div>
         <div class="vc-card-body">
           <p class="vc-card-name">${product.name} <span class="vc-card-size">· ${v.size}</span></p>
@@ -702,7 +815,8 @@ function renderProductBlock(product) {
         <div class="vc-card-footer">
           ${moq ? `<span class="vc-card-moq">${moq}</span>` : ''}
           <button class="vc-card-btn${inCart ? ' vc-card-btn--added' : ''}"
-            onclick="toggleVariant('${v.id}','${product.id}','${product.name}','${color}','${v.size}','${v.sku}',${v.qty_per_box || 0})">
+            data-vid="${v.id}" data-pid="${product.id}" data-pname="${product.name.replace(/"/g,'&quot;')}" data-color="${color}" data-size="${v.size}" data-sku="${v.sku}" data-moq="${v.qty_per_box||0}"
+            onclick="toggleVariantEl(this)">
             ${inCart ? '✓ Added' : '+ Add'}
           </button>
         </div>
@@ -734,6 +848,11 @@ function renderProductBlock(product) {
 }
 
 /* ── 5. Cart ── */
+function toggleVariantEl(btn) {
+  const d = btn.dataset;
+  toggleVariant(d.vid, d.pid, d.pname, d.color, d.size, d.sku, parseInt(d.moq) || 0);
+}
+
 function toggleVariant(variantId, productId, productName, color, size, sku, qtyPerBox) {
   const idx = cart.findIndex(i => i.variantId === variantId);
   if (idx > -1) {
@@ -877,6 +996,13 @@ window.addEventListener('load', () => {
     _catalogueLoaded = true;
     loadCatalogue();
   }
+  /* Always pre-load favourites from Supabase so the set is ready */
+  let favAttempts = 0;
+  const tryLoadFav = () => {
+    if (window._supabase) { loadFavourites(); }
+    else if (favAttempts++ < 20) { setTimeout(tryLoadFav, 150); }
+  };
+  tryLoadFav();
 });
 </script>
 
