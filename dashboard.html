@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" sizes="32x32" href="public/favicon-32x32.png" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/dashboard.css" />
 
@@ -65,13 +66,9 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         Pricing
       </a>
-      <a href="#documents" class="sidebar-link" data-section="documents">
-        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-        Order
-      </a>
       <a href="#quotes" class="sidebar-link" data-section="quotes">
-        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Quote Requests
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h5l2 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Order Container
       </a>
       <a href="#invoices" class="sidebar-link" data-section="invoices">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -186,20 +183,11 @@
             </button>
             <button class="quick-action-btn" onclick="showSection('quotes')">
               <div class="qa-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h5l2 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
               </div>
               <div class="qa-text">
-                <strong>Request Quote</strong>
-                <span>Get pricing in 4 hours</span>
-              </div>
-            </button>
-            <button class="quick-action-btn" onclick="showSection('documents')">
-              <div class="qa-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-              </div>
-              <div class="qa-text">
-                <strong>Place an Order</strong>
-                <span>Browse &amp; order products</span>
+                <strong>Order Container</strong>
+                <span>Fill a full container</span>
               </div>
             </button>
             <button class="quick-action-btn" onclick="showSection('pricing')">
@@ -330,66 +318,318 @@
     </section>
 
     <!-- ── ORDER (PRODUCT CATALOGUE) SECTION ── -->
-    <section class="dash-section" id="sec-documents">
-      <div class="dash-section-head">
-        <h1 class="dash-page-title">Order</h1>
-        <p class="dash-page-sub">Browse our product catalogue and place your order.</p>
-      </div>
-
-      <!-- Search bar -->
-      <div class="cat-search-wrap">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input id="productSearch" type="text" placeholder="Search products…" oninput="renderCatalogue()" />
-      </div>
-
-      <!-- Category tabs -->
-      <div class="cat-tabs" id="catTabs"></div>
-
-      <!-- Product type + variant panels -->
-      <div id="catalogueWrap">
-        <div class="cat-loading">
-          <div class="cat-spinner"></div>
-          <span>Loading products…</span>
-        </div>
-      </div>
-
-      <!-- Order cart summary -->
-      <div class="dash-card cat-cart" id="orderCart" style="display:none;">
-        <div class="cat-cart-head">
-          <h2 class="dash-card-title" style="margin:0;">Your Order List</h2>
-          <span id="cartCount" class="cat-cart-badge">0</span>
-        </div>
-        <ul id="cartItems"></ul>
-        <div class="cat-cart-actions">
-          <button class="btn cat-cart-clear" onclick="clearCart()">Clear all</button>
-          <button class="btn btn-primary" id="submitOrderBtn" onclick="submitOrder()">Submit Order Request</button>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- ── QUOTE REQUESTS SECTION ───────────── -->
+    <!-- ── ORDER CONTAINER SECTION ───────────── -->
     <section class="dash-section" id="sec-quotes">
+
+      <!-- Header -->
       <div class="dash-section-head">
-        <h1 class="dash-page-title">Quote Requests</h1>
-        <p class="dash-page-sub">Submit and track custom quote requests.</p>
+        <h1 class="dash-page-title">Order Container</h1>
+        <p class="dash-page-sub">Build and submit a full container order — one product family per container.</p>
       </div>
 
-      <div class="dash-card">
-        <div class="section-toolbar">
-          <div class="toolbar-filters">
-            <button class="filter-pill active">All</button>
-            <button class="filter-pill">Pending</button>
-            <button class="filter-pill">Responded</button>
+      <!-- ═══ IDLE STATE (shown when no container is being built) ═══ -->
+      <div id="oc-idle">
+        <div class="oc-hero-card">
+          <div class="oc-hero-bg">
+            <div class="oc-hero-blob oc-hero-blob-1"></div>
+            <div class="oc-hero-blob oc-hero-blob-2"></div>
           </div>
-          <a href="index.html#inquiry" class="btn btn-primary" style="font-size:.85rem;padding:.6em 1.4em;">+ New Quote</a>
-        </div>
-        <div class="empty-state">
-          <div class="empty-icon">&#9889;</div>
-          <p>No quote requests yet. Submit a request and your account manager will respond within 4 business hours.</p>
-          <a href="index.html#inquiry" class="btn btn-primary" style="margin-top:1rem;font-size:.88rem;">Submit Quote Request</a>
+          <div class="oc-hero-inner">
+            <div class="oc-hero-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h5l2 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <h2 class="oc-hero-title">Ready to fill a container?</h2>
+            <p class="oc-hero-desc">Each container order is dedicated to a single product family — choose your category, select your product, then pick the sizes and colors you need.</p>
+            <button class="oc-start-btn" onclick="ocStart()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Start New Container Order
+            </button>
+          </div>
+          <div class="oc-hero-steps">
+            <div class="oc-step-hint">
+              <div class="oc-step-hint-num">1</div>
+              <div class="oc-step-hint-text">
+                <strong>Choose Category</strong>
+                <span>Cups, Boxes, Bags…</span>
+              </div>
+            </div>
+            <div class="oc-step-hint-arrow">→</div>
+            <div class="oc-step-hint">
+              <div class="oc-step-hint-num">2</div>
+              <div class="oc-step-hint-text">
+                <strong>Select Family</strong>
+                <span>MBox, HingedLid…</span>
+              </div>
+            </div>
+            <div class="oc-step-hint-arrow">→</div>
+            <div class="oc-step-hint">
+              <div class="oc-step-hint-num">3</div>
+              <div class="oc-step-hint-text">
+                <strong>Add Variants</strong>
+                <span>Sizes &amp; colors</span>
+              </div>
+            </div>
+            <div class="oc-step-hint-arrow">→</div>
+            <div class="oc-step-hint">
+              <div class="oc-step-hint-num">4</div>
+              <div class="oc-step-hint-text">
+                <strong>Submit Order</strong>
+                <span>We handle the rest</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <!-- ═══ BUILDER STATE (shown when ordering is in progress) ═══ -->
+      <div id="oc-builder" style="display:none;">
+
+        <!-- Breadcrumb / step indicator -->
+        <div class="oc-breadcrumb">
+          <button class="oc-crumb oc-crumb--done" id="oc-crumb-cat" onclick="ocGoToStep(1)">
+            <span class="oc-crumb-num">1</span>
+            <span class="oc-crumb-label" id="oc-crumb-cat-label">Category</span>
+          </button>
+          <div class="oc-crumb-line" id="oc-crumb-line-1"></div>
+          <button class="oc-crumb" id="oc-crumb-fam" onclick="ocGoToStep(2)" disabled>
+            <span class="oc-crumb-num">2</span>
+            <span class="oc-crumb-label" id="oc-crumb-fam-label">Family</span>
+          </button>
+          <div class="oc-crumb-line" id="oc-crumb-line-2"></div>
+          <button class="oc-crumb" id="oc-crumb-var" onclick="ocGoToStep(3)" disabled>
+            <span class="oc-crumb-num">3</span>
+            <span class="oc-crumb-label">Add Items</span>
+          </button>
+        </div>
+
+        <!-- Two-column layout: steps on left, container summary on right -->
+        <div class="oc-layout">
+
+          <!-- Left: step panels -->
+          <div class="oc-steps-col">
+
+            <!-- STEP 1: Category -->
+            <div class="oc-step-panel" id="oc-step-1">
+              <div class="oc-step-header">
+                <div class="oc-step-badge">Step 1</div>
+                <h2 class="oc-step-title">Choose a Product Category</h2>
+                <p class="oc-step-desc">All items in your container must belong to the same product family within the selected category.</p>
+              </div>
+              <div class="oc-category-grid" id="oc-category-grid">
+                <!-- Populated by JS -->
+                <div class="oc-loading">
+                  <div class="oc-spinner"></div>
+                  <span>Loading categories…</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 2: Family -->
+            <div class="oc-step-panel" id="oc-step-2" style="display:none;">
+              <div class="oc-step-header">
+                <div class="oc-step-badge">Step 2</div>
+                <h2 class="oc-step-title">Select Product Family</h2>
+                <p class="oc-step-desc">Pick the specific product line for your container. You can only mix sizes and colors within this family.</p>
+              </div>
+              <div class="oc-family-grid" id="oc-family-grid">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <!-- STEP 3: Variants -->
+            <div class="oc-step-panel" id="oc-step-3" style="display:none;">
+              <div class="oc-step-header">
+                <button class="oc-back-btn" onclick="ocGoToStep(2)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                  Change family
+                </button>
+                <div class="oc-step-badge">Step 3</div>
+                <h2 class="oc-step-title">Add Variants to Container</h2>
+                <p class="oc-step-desc">Select sizes and colors — set quantities for each variant you want to include.</p>
+              </div>
+              <div class="oc-variant-grid" id="oc-variant-grid">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+          </div><!-- /oc-steps-col -->
+
+          <!-- Right: container live summary -->
+          <div class="oc-summary-col">
+            <div class="oc-summary-card">
+              <!-- Container visual -->
+              <div class="oc-container-visual">
+                <div class="oc-container-truck">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 44" fill="none">
+                    <!-- Truck cab -->
+                    <rect x="50" y="10" width="28" height="22" rx="3" fill="#1e4d32"/>
+                    <rect x="58" y="13" width="14" height="10" rx="1.5" fill="#93d5b2" opacity=".5"/>
+                    <!-- Container body -->
+                    <rect x="1" y="6" width="51" height="26" rx="2" fill="#2d6a4a"/>
+                    <!-- Fill bar -->
+                    <rect x="1" y="6" width="51" height="26" rx="2" fill="url(#ocFillGrad)" id="oc-fill-rect" style="clip-path:inset(0 var(--oc-fill-clip, 100%) 0 0 round 2px)"/>
+                    <!-- Container lines -->
+                    <line x1="18" y1="6" x2="18" y2="32" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+                    <line x1="34" y1="6" x2="34" y2="32" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+                    <!-- Wheels -->
+                    <circle cx="12" cy="38" r="5" fill="#1a2e1e"/>
+                    <circle cx="12" cy="38" r="2.5" fill="#3d8a5c"/>
+                    <circle cx="28" cy="38" r="5" fill="#1a2e1e"/>
+                    <circle cx="28" cy="38" r="2.5" fill="#3d8a5c"/>
+                    <circle cx="66" cy="38" r="5" fill="#1a2e1e"/>
+                    <circle cx="66" cy="38" r="2.5" fill="#3d8a5c"/>
+                    <defs>
+                      <linearGradient id="ocFillGrad" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+                        <stop offset="0%" stop-color="#52b788"/>
+                        <stop offset="100%" stop-color="#74c99e"/>
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+                <div class="oc-fill-info">
+                  <div class="oc-fill-label">Container fill</div>
+                  <div class="oc-fill-bar-wrap">
+                    <div class="oc-fill-bar">
+                      <div class="oc-fill-bar-inner" id="oc-fill-bar-inner" style="width:0%"></div>
+                    </div>
+                    <span class="oc-fill-pct" id="oc-fill-pct">0%</span>
+                  </div>
+                  <div class="oc-fill-note" id="oc-fill-note">Add items to begin filling your container.</div>
+                </div>
+              </div>
+
+              <!-- Context pills -->
+              <div class="oc-context-pills" id="oc-context-pills">
+                <span class="oc-pill oc-pill--cat" id="oc-pill-cat" style="display:none"></span>
+                <span class="oc-pill oc-pill--fam" id="oc-pill-fam" style="display:none"></span>
+              </div>
+
+              <!-- Items list -->
+              <div class="oc-items-label">Container Contents</div>
+              <div class="oc-items-empty" id="oc-items-empty">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h5l2 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                <span>Your container is empty</span>
+              </div>
+              <ul class="oc-items-list" id="oc-items-list"></ul>
+
+              <!-- Totals -->
+              <div class="oc-totals" id="oc-totals" style="display:none">
+                <div class="oc-total-row">
+                  <span>Total variants</span>
+                  <span id="oc-total-variants">0</span>
+                </div>
+                <div class="oc-total-row">
+                  <span>Total pieces</span>
+                  <strong id="oc-total-pcs">0</strong>
+                </div>
+              </div>
+
+              <!-- Actions -->
+              <div class="oc-summary-actions">
+                <button class="oc-cancel-btn" onclick="ocCancel()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  Discard
+                </button>
+                <button class="oc-submit-btn" id="oc-submit-btn" onclick="ocGoToOverview()" disabled>
+                  Review Order
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </button>
+              </div>
+            </div>
+          </div><!-- /oc-summary-col -->
+
+        </div><!-- /oc-layout -->
+      </div><!-- /oc-builder -->
+
+      <!-- ═══ OVERVIEW STATE (shown before final submission) ═══ -->
+      <div id="oc-overview" style="display:none;">
+
+        <!-- Back to builder -->
+        <div class="oc-ov-topbar">
+          <button class="oc-back-btn" onclick="ocBackToBuilder()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Back to builder
+          </button>
+        </div>
+
+        <!-- Summary header card -->
+        <div class="oc-ov-header-card">
+          <div class="oc-ov-header-left">
+            <div class="oc-ov-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><polyline points="9 12 11 14 15 10"/></svg>
+            </div>
+            <div>
+              <div class="oc-ov-title">Order Overview</div>
+              <div class="oc-ov-subtitle">Please review your container order before submitting.</div>
+            </div>
+          </div>
+          <div class="oc-ov-meta" id="oc-ov-meta">
+            <!-- Populated by JS: category, family, totals -->
+          </div>
+        </div>
+
+        <!-- Items table -->
+        <div class="oc-ov-table-wrap">
+          <table class="oc-ov-table" id="oc-ov-table">
+            <thead>
+              <tr>
+                <th style="width:2.5rem;">#</th>
+                <th>Product</th>
+                <th>Size</th>
+                <th>Color</th>
+                <th>SKU</th>
+                <th>Boxes</th>
+                <th>Pcs / Box</th>
+                <th>Total Pcs</th>
+                <th>CBM</th>
+                <th style="width:2.5rem;"></th>
+              </tr>
+            </thead>
+            <tbody id="oc-ov-tbody">
+              <!-- Populated by JS -->
+            </tbody>
+            <tfoot>
+              <tr class="oc-ov-foot">
+                <td colspan="5"><strong>Container Total</strong></td>
+                <td id="oc-ov-foot-boxes"></td>
+                <td></td>
+                <td id="oc-ov-foot-pcs"></td>
+                <td id="oc-ov-foot-cbm"></td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <!-- Notes field -->
+        <div class="oc-ov-notes-wrap">
+          <label class="oc-ov-notes-label" for="oc-ov-notes">Order Notes <span>(optional)</span></label>
+          <textarea id="oc-ov-notes" class="oc-ov-notes" rows="3" placeholder="Any special instructions, delivery preferences, or remarks for your account manager…"></textarea>
+        </div>
+
+        <!-- CBM validation notice (shown by JS) -->
+        <div id="oc-ov-cbm-notice" style="display:none;margin-bottom:1rem;padding:.85rem 1rem;border-radius:8px;font-size:.875rem;font-weight:500;"></div>
+
+        <!-- Submit row -->
+        <div class="oc-ov-submit-row">
+          <div class="oc-ov-submit-info">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Your account manager will confirm this order within 4 business hours.
+          </div>
+          <div class="oc-ov-submit-btns">
+            <button class="oc-cancel-btn" onclick="ocCancel()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Discard
+            </button>
+            <button class="oc-submit-final-btn" id="oc-submit-final-btn" onclick="ocSubmit()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Confirm &amp; Submit Order
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /oc-overview -->
+
     </section>
 
     <!-- ── INVOICES SECTION ──────────────────── -->
@@ -560,12 +800,10 @@ document.getElementById('signOutBtn').addEventListener('click', async () => {
 });
 
 /* ══════════════════════════════════════════
-   ORDER / CATALOGUE  —  Supabase-powered
+   CATALOGUE DATA  —  shared by OC + Favourites
 ══════════════════════════════════════════ */
 let _allProducts    = [];   // [{id, name, category, material, variants:[…]}]
-let _activeCategory = null;
 let _catalogueLoaded = false;
-let cart = [];
 
 /* ── Favourites (persisted in Supabase) ── */
 let _favourites = new Set(); // Set of variant_id strings
@@ -616,8 +854,7 @@ function renderFavourites() {
   if (!_favourites.size) {
     card.innerHTML = `<div class="empty-state">
       <div class="empty-icon">⭐</div>
-      <p>You haven't saved any products yet. Browse our catalogue and click the star on a product to save it here.</p>
-      <button class="btn btn-primary" style="margin-top:1rem;font-size:.88rem;" onclick="showSection('documents')">Browse Products</button>
+      <p>You haven't saved any products yet.</p>
     </div>`;
     return;
   }
@@ -634,15 +871,13 @@ function renderFavourites() {
     card.innerHTML = `<div class="empty-state">
       <div class="empty-icon">⭐</div>
       <p>Your saved products will appear here once the catalogue is loaded.</p>
-      <button class="btn btn-primary" style="margin-top:1rem;font-size:.88rem;" onclick="showSection('documents')">Browse Products</button>
     </div>`;
     return;
   }
 
   card.innerHTML = `<div class="fav-grid">${favItems.map(({ product, variant }) => {
     const color = variant.color || 'Other';
-    const inCart = cart.find(i => i.variantId === variant.id);
-    return `<div class="vc-card${inCart ? ' vc-card--selected' : ''}" style="position:relative;">
+    return `<div class="vc-card" style="position:relative;">
       <div class="vc-card-img" style="position:relative;">
         ${variant.images
           ? `<img src="${variant.images}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;border-radius:6px;">`
@@ -650,17 +885,12 @@ function renderFavourites() {
         <button class="fav-btn fav-btn--active fav-btn--visible" data-vid="${variant.id}" title="Remove from Favourites" onclick="event.stopPropagation();toggleFavourite('${variant.id}');this.closest('.vc-card').remove();checkFavEmpty();">★</button>
       </div>
       <div class="vc-card-body">
-        <p class="vc-card-name">${product.name} <span class="vc-card-size">· ${variant.size}</span></p>
+        <p class="vc-card-name">${product.name} <span class="vc-card-size">· ${variant.capacity}</span></p>
         <p class="vc-card-sku">${variant.sku}</p>
         <div class="vc-card-color">${colorDot(color)}<span>${color}</span></div>
       </div>
       <div class="vc-card-footer">
         ${variant.qty_per_box ? `<span class="vc-card-moq">MOQ ${variant.qty_per_box} pcs</span>` : ''}
-        <button class="vc-card-btn${inCart ? ' vc-card-btn--added' : ''}"
-          data-vid="${variant.id}" data-pid="${product.id}" data-pname="${product.name.replace(/"/g,'&quot;')}" data-color="${color}" data-size="${variant.size}" data-sku="${variant.sku}" data-moq="${variant.qty_per_box||0}"
-          onclick="toggleVariantEl(this)">
-          ${inCart ? '✓ Added' : '+ Add'}
-        </button>
       </div>
     </div>`;
   }).join('')}</div>`;
@@ -686,52 +916,32 @@ function colorDot(color) {
   return `<span class="color-dot" style="background:${bg};border:${border};" title="${color}"></span>`;
 }
 
-/* ── 1. Fetch from Supabase ── */
 async function loadCatalogue() {
-  const wrap = document.getElementById('catalogueWrap');
-
-  /* Wait for supabase client to be available (auth guard is async) */
   let attempts = 0;
   while (!window._supabase && attempts < 20) {
     await new Promise(r => setTimeout(r, 150));
     attempts++;
   }
-  if (!window._supabase) {
-    wrap.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><p>Session not ready. Please refresh the page.</p></div>`;
-    return;
-  }
+  if (!window._supabase) return;
 
   try {
-    console.log('[Catalogue] Fetching from Supabase…', window._supabase);
-
     const { data: products, error: pErr } = await window._supabase.from('products').select('*');
-    console.log('[Catalogue] products:', products, 'error:', pErr);
-
     const { data: variants, error: vErr } = await window._supabase.from('product_variants').select('*');
-    console.log('[Catalogue] variants:', variants, 'error:', vErr);
-
     if (pErr) throw pErr;
     if (vErr) throw vErr;
 
-    /* Attach variants to each product
-       Note: column is "product_it" (not product_id) in the DB */
     const productIdKey = variants?.[0]
       ? (Object.keys(variants[0]).find(k => k.startsWith('product_i')) || 'product_id')
       : 'product_id';
-    console.log('[Catalogue] variant foreign key column:', productIdKey);
 
     _allProducts = (products || []).map(p => ({
       ...p,
       variants: (variants || []).filter(v => v[productIdKey] === p.id),
     }));
 
-    console.log('[Catalogue] _allProducts:', _allProducts);
-    renderCatTabs();
-    renderCatalogue();
     loadFavourites();
   } catch (err) {
     console.error('Catalogue load error:', err);
-    wrap.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><p>Could not load products: ${err.message || err}. Please refresh or contact support.</p></div>`;
   }
 }
 
@@ -766,7 +976,7 @@ function renderCatalogue() {
       p.variants.some(v =>
         (v.sku   || '').toLowerCase().includes(search) ||
         (v.color || '').toLowerCase().includes(search) ||
-        (v.size  || '').toLowerCase().includes(search));
+        (v.capacity || '').toLowerCase().includes(search));
     return matchCat && matchText;
   });
 
@@ -793,7 +1003,7 @@ function renderProductBlock(product) {
 
   // Sort sizes within each colour naturally (500ml < 750ml < 1000ml …)
   Object.values(byColor).forEach(arr =>
-    arr.sort((a, b) => parseInt(a.size) - parseInt(b.size))
+    arr.sort((a, b) => parseInt(a.capacity) - parseInt(b.capacity))
   );
 
   const colorRows = Object.entries(byColor).map(([color, cvariants]) => {
@@ -808,14 +1018,14 @@ function renderProductBlock(product) {
           <button class="fav-btn${_favourites.has(v.id) ? ' fav-btn--active' : ''}" data-vid="${v.id}" title="${_favourites.has(v.id) ? 'Remove from Favourites' : 'Save to Favourites'}" onclick="event.stopPropagation();toggleFavourite('${v.id}')">★</button>
         </div>
         <div class="vc-card-body">
-          <p class="vc-card-name">${product.name} <span class="vc-card-size">· ${v.size}</span></p>
+          <p class="vc-card-name">${product.name} <span class="vc-card-size">· ${v.capacity}</span></p>
           <p class="vc-card-sku">${v.sku}</p>
           <div class="vc-card-color">${colorDot(color)}<span>${color}</span></div>
         </div>
         <div class="vc-card-footer">
           ${moq ? `<span class="vc-card-moq">${moq}</span>` : ''}
           <button class="vc-card-btn${inCart ? ' vc-card-btn--added' : ''}"
-            data-vid="${v.id}" data-pid="${product.id}" data-pname="${product.name.replace(/"/g,'&quot;')}" data-color="${color}" data-size="${v.size}" data-sku="${v.sku}" data-moq="${v.qty_per_box||0}"
+            data-vid="${v.id}" data-pid="${product.id}" data-pname="${product.name.replace(/"/g,'&quot;')}" data-color="${color}" data-size="${v.capacity}" data-sku="${v.sku}" data-moq="${v.qty_per_box||0}"
             onclick="toggleVariantEl(this)">
             ${inCart ? '✓ Added' : '+ Add'}
           </button>
@@ -1003,6 +1213,530 @@ window.addEventListener('load', () => {
     else if (favAttempts++ < 20) { setTimeout(tryLoadFav, 150); }
   };
   tryLoadFav();
+});
+
+/* ══════════════════════════════════════════
+   ORDER CONTAINER  —  Step-based wizard
+══════════════════════════════════════════ */
+
+const CATEGORY_ICONS = {
+  default: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>`,
+  cups:    `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,
+  bags:    `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`,
+  boxes:   `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>`,
+  eco:     `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12M12 12C12 12 7 9.5 4 4c4.5 1 7 4 8 8z"/><path d="M12 12c0 0 5-2.5 8-8-4.5 1-7 4-8 8z"/></svg>`,
+  lids:    `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v4c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>`,
+};
+
+function getCatIcon(cat) {
+  const key = (cat || '').toLowerCase();
+  if (key.includes('cup'))  return CATEGORY_ICONS.cups;
+  if (key.includes('bag'))  return CATEGORY_ICONS.bags;
+  if (key.includes('box'))  return CATEGORY_ICONS.boxes;
+  if (key.includes('eco'))  return CATEGORY_ICONS.eco;
+  if (key.includes('lid'))  return CATEGORY_ICONS.lids;
+  return CATEGORY_ICONS.default;
+}
+
+let _oc = {
+  step: 0,
+  category: null,
+  family: null,
+  items: [],       // [{variantId, productId, name, color, size, sku, qty, qtyPerBox, cartonCbm}]
+};
+
+const OC_CBM_MIN = 69;
+const OC_CBM_MAX = 71;
+
+function ocStart() {
+  /* Ensure products are loaded */
+  if (!_catalogueLoaded) {
+    _catalogueLoaded = true;
+    loadCatalogue().then(() => _ocShowBuilder());
+    return;
+  }
+  _ocShowBuilder();
+}
+
+function _ocShowBuilder() {
+  document.getElementById('oc-idle').style.display    = 'none';
+  document.getElementById('oc-builder').style.display = '';
+  _oc = { step: 0, category: null, family: null, items: [] };
+  ocGoToStep(1);
+  _ocRenderSummary();
+}
+
+function ocCancel() {
+  if (_oc.items.length > 0) {
+    if (!confirm('Discard this container order?')) return;
+  }
+  document.getElementById('oc-idle').style.display     = '';
+  document.getElementById('oc-builder').style.display  = 'none';
+  document.getElementById('oc-overview').style.display = 'none';
+}
+
+function ocGoToStep(step) {
+  if (step === 2 && !_oc.category) return;
+  if (step === 3 && !_oc.family)   return;
+
+  _oc.step = step;
+  document.getElementById('oc-step-1').style.display = step === 1 ? '' : 'none';
+  document.getElementById('oc-step-2').style.display = step === 2 ? '' : 'none';
+  document.getElementById('oc-step-3').style.display = step === 3 ? '' : 'none';
+  _ocUpdateBreadcrumb();
+
+  if (step === 1) _ocRenderCategories();
+  if (step === 2) _ocRenderFamilies();
+  if (step === 3) _ocRenderVariants();
+}
+
+function _ocUpdateBreadcrumb() {
+  const crumbs = ['oc-crumb-cat', 'oc-crumb-fam', 'oc-crumb-var'];
+  const lines  = ['oc-crumb-line-1', 'oc-crumb-line-2'];
+
+  crumbs.forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.classList.toggle('oc-crumb--active', _oc.step === i + 1);
+    el.classList.toggle('oc-crumb--done',   _oc.step > i + 1);
+    el.disabled = (i + 1 > _oc.step) || (i === 1 && !_oc.category) || (i === 2 && !_oc.family);
+  });
+
+  lines.forEach((id, i) => {
+    document.getElementById(id)?.classList.toggle('oc-crumb-line--active', _oc.step > i + 1);
+  });
+
+  if (_oc.category) document.getElementById('oc-crumb-cat-label').textContent = _oc.category;
+  if (_oc.family)   document.getElementById('oc-crumb-fam-label').textContent = _oc.family;
+}
+
+/* ── Step 1: categories ── */
+function _ocRenderCategories() {
+  const grid = document.getElementById('oc-category-grid');
+
+  /* If products not loaded yet */
+  if (!_allProducts.length) {
+    grid.innerHTML = `<div class="oc-loading"><div class="oc-spinner"></div><span>Loading…</span></div>`;
+    const wait = setInterval(() => {
+      if (_allProducts.length) { clearInterval(wait); _ocRenderCategories(); }
+    }, 200);
+    return;
+  }
+
+  const categories = [...new Set(_allProducts.map(p => p.category).filter(Boolean))];
+  grid.innerHTML = categories.map(cat => `
+    <button class="oc-cat-card${_oc.category === cat ? ' oc-cat-card--active' : ''}" onclick="ocSelectCategory('${cat}')">
+      <div class="oc-cat-icon">${getCatIcon(cat)}</div>
+      <div class="oc-cat-name">${cat}</div>
+      <div class="oc-cat-count">${_allProducts.filter(p => p.category === cat).length} product${_allProducts.filter(p => p.category === cat).length !== 1 ? 's' : ''}</div>
+    </button>
+  `).join('');
+}
+
+function ocSelectCategory(cat) {
+  const changed = _oc.category !== cat;
+  _oc.category = cat;
+  if (changed) { _oc.family = null; _oc.items = []; _ocRenderSummary(); }
+
+  /* Mark pill */
+  const pill = document.getElementById('oc-pill-cat');
+  pill.textContent = cat;
+  pill.style.display = '';
+  document.getElementById('oc-pill-fam').style.display = 'none';
+
+  setTimeout(() => ocGoToStep(2), 200);
+}
+
+/* ── Step 2: families ── */
+function _ocRenderFamilies() {
+  const grid = document.getElementById('oc-family-grid');
+  const products = _allProducts.filter(p => p.category === _oc.category);
+
+  grid.innerHTML = products.map(p => {
+    const varCount = p.variants.length;
+    const colors   = [...new Set(p.variants.map(v => v.color).filter(Boolean))];
+    const sizes    = [...new Set(p.variants.map(v => v.capacity).filter(Boolean))];
+    return `
+    <button class="oc-fam-card${_oc.family === p.name ? ' oc-fam-card--active' : ''}" onclick="ocSelectFamily('${p.id}', '${p.name.replace(/'/g, "\\'")}')">
+      <div class="oc-fam-card-inner">
+        <div class="oc-fam-img">
+          ${p.variants[0]?.images
+            ? `<img src="${p.variants[0].images}" alt="${p.name}">`
+            : `<div class="oc-fam-placeholder">${getCatIcon(p.category)}</div>`}
+        </div>
+        <div class="oc-fam-info">
+          <div class="oc-fam-name">${p.name}</div>
+          ${p.material ? `<div class="oc-fam-material">${p.material}</div>` : ''}
+          <div class="oc-fam-meta">
+            <span>${varCount} variant${varCount !== 1 ? 's' : ''}</span>
+            ${colors.length ? `<span>${colors.length} color${colors.length !== 1 ? 's' : ''}</span>` : ''}
+            ${sizes.length ? `<span>${sizes.length} size${sizes.length !== 1 ? 's' : ''}</span>` : ''}
+          </div>
+        </div>
+        <div class="oc-fam-check">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+      </div>
+    </button>`;
+  }).join('');
+}
+
+function ocSelectFamily(productId, productName) {
+  const changed = _oc.family !== productName;
+  _oc.family    = productName;
+  _oc.familyId  = productId;
+  if (changed) { _oc.items = []; _ocRenderSummary(); }
+
+  const pill = document.getElementById('oc-pill-fam');
+  pill.textContent = productName;
+  pill.style.display = '';
+
+  setTimeout(() => ocGoToStep(3), 200);
+}
+
+/* ── Step 3: variants ── */
+function _ocRenderVariants() {
+  const grid    = document.getElementById('oc-variant-grid');
+  const product = _allProducts.find(p => p.name === _oc.family);
+  if (!product) { grid.innerHTML = '<p>Product not found.</p>'; return; }
+
+  /* Group by color */
+  const byColor = {};
+  product.variants.forEach(v => {
+    const key = v.color || 'Other';
+    if (!byColor[key]) byColor[key] = [];
+    byColor[key].push(v);
+  });
+  Object.values(byColor).forEach(arr => arr.sort((a, b) => parseInt(a.capacity) - parseInt(b.capacity)));
+
+  grid.innerHTML = Object.entries(byColor).map(([color, variants]) => `
+    <div class="oc-var-group">
+      <div class="oc-var-group-label">
+        ${colorDot(color)}<span>${color}</span>
+      </div>
+      <div class="oc-var-cards">
+        ${variants.map(v => {
+          const item    = _oc.items.find(i => i.variantId === v.id);
+          const isAdded = !!item;
+          return `<div class="oc-var-card${isAdded ? ' oc-var-card--added' : ''}" id="ovc-${v.id}">
+            <div class="oc-var-card-top">
+              ${v.images ? `<img class="oc-var-thumb" src="${v.images}" alt="${product.name}">` : `<div class="oc-var-thumb oc-var-thumb--placeholder">${colorDot(color)}</div>`}
+              <div class="oc-var-details">
+                <div class="oc-var-size">${v.capacity}</div>
+                <div class="oc-var-sku">${v.sku}</div>
+                ${v.qty_per_box ? `<div class="oc-var-moq">${v.qty_per_box} pcs/box</div>` : ''}
+                ${v.carton_cbm ? `<div class="oc-var-moq">${v.carton_cbm} m³/ctn</div>` : ''}
+              </div>
+            </div>
+            <div class="oc-var-card-footer">
+              ${isAdded ? `
+                <div class="oc-var-qty-row">
+                  <button class="oc-qty-btn" onclick="ocChangeQty('${v.id}',-1)">−</button>
+                  <input class="oc-qty-input" type="number" min="1" value="${item.qty}"
+                    onchange="ocSetQty('${v.id}',this.value)" onblur="ocSetQty('${v.id}',this.value)">
+                  <button class="oc-qty-btn" onclick="ocChangeQty('${v.id}',1)">+</button>
+                </div>
+                <button class="oc-var-remove" onclick="ocRemoveVariant('${v.id}')">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              ` : `
+                <button class="oc-var-add-btn" onclick="ocAddVariant('${v.id}','${product.id}','${product.name.replace(/'/g,"\\'")}','${color}','${v.capacity}','${v.sku}',${v.qty_per_box||0},${v.carton_cbm||0})">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  Add
+                </button>
+              `}
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ── Cart actions ── */
+function ocAddVariant(variantId, productId, name, color, size, sku, qtyPerBox, cartonCbm) {
+  if (!_oc.items.find(i => i.variantId === variantId)) {
+    _oc.items.push({ variantId, productId, name, color, size, sku, qty: 1, qtyPerBox, cartonCbm: cartonCbm || 0 });
+  }
+  _ocRenderVariants();
+  _ocRenderSummary();
+}
+
+function ocRemoveVariant(variantId) {
+  _oc.items = _oc.items.filter(i => i.variantId !== variantId);
+  _ocRenderVariants();
+  _ocRenderSummary();
+}
+
+function ocChangeQty(variantId, delta) {
+  const item = _oc.items.find(i => i.variantId === variantId);
+  if (!item) return;
+  item.qty = Math.max(1, item.qty + delta);
+  _ocRenderVariants();
+  _ocRenderSummary();
+}
+
+function ocSetQty(variantId, value) {
+  const item = _oc.items.find(i => i.variantId === variantId);
+  if (!item) return;
+  const parsed = parseInt(value, 10);
+  if (!parsed || parsed < 1) return;
+  item.qty = parsed;
+  _ocRenderSummary();
+}
+
+/* ── Summary panel ── */
+function _ocRenderSummary() {
+  const emptyEl  = document.getElementById('oc-items-empty');
+  const listEl   = document.getElementById('oc-items-list');
+  const totalsEl = document.getElementById('oc-totals');
+  const submitEl = document.getElementById('oc-submit-btn');
+  const fillBar  = document.getElementById('oc-fill-bar-inner');
+  const fillPct  = document.getElementById('oc-fill-pct');
+  const fillNote = document.getElementById('oc-fill-note');
+
+  const items    = _oc.items;
+  const totalPcs = items.reduce((s, i) => s + i.qty * (i.qtyPerBox || 1), 0);
+
+  /* CBM calculation — all items must have carton_cbm; missing data blocks submission */
+  const cbmItems       = items.filter(i => i.cartonCbm > 0);
+  const hasCbmData     = cbmItems.length > 0;
+  const allHaveCbm     = items.length > 0 && items.every(i => i.cartonCbm > 0);
+  const totalCbm       = items.reduce((s, i) => s + i.qty * i.cartonCbm, 0);
+  const cbmInRange     = allHaveCbm && totalCbm >= OC_CBM_MIN && totalCbm <= OC_CBM_MAX;
+
+  /* Fill bar — CBM-based when data available, piece-based otherwise */
+  let pct, fillLabel, fillColor;
+  if (hasCbmData) {
+    pct       = Math.min(100, Math.round((totalCbm / OC_CBM_MAX) * 100));
+    fillLabel = `${totalCbm.toFixed(2)} m³`;
+    if (totalCbm < OC_CBM_MIN) {
+      fillColor = '#e67e22';  /* orange — under-filled */
+    } else if (totalCbm > OC_CBM_MAX) {
+      fillColor = '#e74c3c';  /* red — over-filled */
+    } else {
+      fillColor = '#27ae60';  /* green — valid */
+    }
+  } else {
+    pct       = Math.min(100, Math.round((totalPcs / 50000) * 100));
+    fillLabel = `${totalPcs.toLocaleString()} pcs`;
+    fillColor = '#52b788';
+  }
+
+  fillBar.style.width      = pct + '%';
+  fillBar.style.background = fillColor;
+  fillPct.textContent      = hasCbmData ? `${totalCbm.toFixed(2)} m³` : pct + '%';
+  fillPct.style.color      = hasCbmData && !cbmInRange ? fillColor : '';
+
+  if (!items.length) {
+    fillNote.textContent = 'Add items to begin filling your container.';
+    fillNote.style.color = '';
+  } else if (!allHaveCbm) {
+    fillNote.innerHTML = `<span style="color:#e74c3c">⚠ This product has no carton CBM data — cannot submit until CBM is available</span>`;
+  } else if (totalCbm < OC_CBM_MIN) {
+    fillNote.innerHTML = `<span style="color:${fillColor}">⚠ ${totalCbm.toFixed(2)} m³ — need at least ${OC_CBM_MIN} m³ to fill the container</span>`;
+  } else if (totalCbm > OC_CBM_MAX) {
+    fillNote.innerHTML = `<span style="color:${fillColor}">⚠ ${totalCbm.toFixed(2)} m³ — exceeds the ${OC_CBM_MAX} m³ container limit</span>`;
+  } else {
+    fillNote.innerHTML = `<span style="color:${fillColor}">✓ ${totalCbm.toFixed(2)} m³ — container is ready (${OC_CBM_MIN}–${OC_CBM_MAX} m³)</span>`;
+  }
+
+  if (!items.length) {
+    emptyEl.style.display  = '';
+    listEl.innerHTML       = '';
+    totalsEl.style.display = 'none';
+    submitEl.disabled      = true;
+    return;
+  }
+
+  emptyEl.style.display  = 'none';
+  totalsEl.style.display = '';
+  submitEl.disabled      = !cbmInRange;
+
+  document.getElementById('oc-total-variants').textContent = items.length;
+  document.getElementById('oc-total-pcs').textContent      = totalPcs.toLocaleString();
+
+  listEl.innerHTML = items.map(i => `
+    <li class="oc-item">
+      <div class="oc-item-dot">${colorDot(i.color)}</div>
+      <div class="oc-item-info">
+        <span class="oc-item-name">${i.name}</span>
+        <span class="oc-item-sub">${i.size} · ${i.color}${i.cartonCbm > 0 ? ` · ${(i.qty * i.cartonCbm).toFixed(2)} m³` : ''}</span>
+      </div>
+      <div class="oc-item-qty">
+        <button onclick="ocChangeQty('${i.variantId}',-1)">−</button>
+        <span>${i.qty}</span>
+        <button onclick="ocChangeQty('${i.variantId}',1)">+</button>
+      </div>
+      <button class="oc-item-remove" onclick="ocRemoveVariant('${i.variantId}')">✕</button>
+    </li>`).join('');
+}
+
+/* ── Overview ── */
+function ocGoToOverview() {
+  if (!_oc.items.length) return;
+  /* CBM guard — block if no CBM data or out of range */
+  const totalCbm  = _oc.items.reduce((s, i) => s + i.qty * i.cartonCbm, 0);
+  const allHaveCbm = _oc.items.every(i => i.cartonCbm > 0);
+  if (!allHaveCbm || totalCbm < OC_CBM_MIN || totalCbm > OC_CBM_MAX) return;
+  document.getElementById('oc-builder').style.display  = 'none';
+  document.getElementById('oc-overview').style.display = '';
+  _ocRenderOverview();
+  document.getElementById('sec-quotes').scrollTop = 0;
+  window.scrollTo({ top: document.getElementById('sec-quotes').offsetTop - 80, behavior: 'smooth' });
+}
+
+function ocBackToBuilder() {
+  document.getElementById('oc-overview').style.display = 'none';
+  document.getElementById('oc-builder').style.display  = '';
+}
+
+function _ocRenderOverview() {
+  const items      = _oc.items;
+  const totalPcs   = items.reduce((s, i) => s + i.qty * (i.qtyPerBox || 1), 0);
+  const totalBoxes = items.reduce((s, i) => s + i.qty, 0);
+  const totalCbm   = items.reduce((s, i) => s + i.qty * i.cartonCbm, 0);
+  const hasCbmData = items.some(i => i.cartonCbm > 0);
+
+  /* Header meta badges */
+  document.getElementById('oc-ov-meta').innerHTML = `
+    <div class="oc-ov-meta-item">
+      <span class="oc-ov-meta-label">Category</span>
+      <span class="oc-ov-meta-val">${_oc.category || '—'}</span>
+    </div>
+    <div class="oc-ov-meta-item">
+      <span class="oc-ov-meta-label">Family</span>
+      <span class="oc-ov-meta-val">${_oc.family || '—'}</span>
+    </div>
+    <div class="oc-ov-meta-item">
+      <span class="oc-ov-meta-label">Variants</span>
+      <span class="oc-ov-meta-val">${items.length}</span>
+    </div>
+    <div class="oc-ov-meta-item">
+      <span class="oc-ov-meta-label">Total Pieces</span>
+      <span class="oc-ov-meta-val oc-ov-meta-val--accent">${totalPcs.toLocaleString()}</span>
+    </div>
+    ${hasCbmData ? `
+    <div class="oc-ov-meta-item">
+      <span class="oc-ov-meta-label">Container CBM</span>
+      <span class="oc-ov-meta-val oc-ov-meta-val--accent">${totalCbm.toFixed(2)} m³</span>
+    </div>` : ''}
+  `;
+
+  /* Table rows */
+  document.getElementById('oc-ov-tbody').innerHTML = items.map((item, idx) => `
+    <tr>
+      <td class="oc-ov-num">${idx + 1}</td>
+      <td>
+        <div class="oc-ov-prod-cell">
+          <span class="oc-ov-prod-name">${item.name}</span>
+        </div>
+      </td>
+      <td><span class="oc-ov-badge">${item.size}</span></td>
+      <td>
+        <div class="oc-ov-color-cell">
+          ${colorDot(item.color)}
+          <span>${item.color}</span>
+        </div>
+      </td>
+      <td class="oc-ov-sku">${item.sku}</td>
+      <td class="oc-ov-center">${item.qty}</td>
+      <td class="oc-ov-center">${item.qtyPerBox ? item.qtyPerBox.toLocaleString() : '—'}</td>
+      <td class="oc-ov-center oc-ov-pcs">${(item.qty * (item.qtyPerBox || 1)).toLocaleString()}</td>
+      <td class="oc-ov-center">${item.cartonCbm > 0 ? (item.qty * item.cartonCbm).toFixed(2) + ' m³' : '—'}</td>
+      <td>
+        <button class="oc-ov-row-remove" title="Remove" onclick="ocOvRemoveItem('${item.variantId}')">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </td>
+    </tr>
+  `).join('');
+
+  /* Footer totals */
+  document.getElementById('oc-ov-foot-boxes').textContent = totalBoxes;
+  document.getElementById('oc-ov-foot-pcs').textContent   = totalPcs.toLocaleString();
+  document.getElementById('oc-ov-foot-cbm').textContent   = hasCbmData ? totalCbm.toFixed(2) + ' m³' : '';
+
+  /* CBM notice + submit gate */
+  const notice     = document.getElementById('oc-ov-cbm-notice');
+  const submitBtn  = document.getElementById('oc-submit-final-btn');
+  const allHaveCbm = items.every(i => i.cartonCbm > 0);
+
+  if (!allHaveCbm) {
+    submitBtn.disabled      = true;
+    notice.style.display    = '';
+    notice.style.background = '#fff0f0';
+    notice.style.color      = '#c0392b';
+    notice.style.border     = '1px solid #f5c6c6';
+    notice.innerHTML = `⚠ This product has no carton CBM data. Submission is blocked until CBM data is added by the team.`;
+  } else if (totalCbm < OC_CBM_MIN) {
+    submitBtn.disabled      = true;
+    notice.style.display    = '';
+    notice.style.background = '#fff8f0';
+    notice.style.color      = '#c0392b';
+    notice.style.border     = '1px solid #f5cba7';
+    notice.innerHTML = `⚠ Container is under-filled: <strong>${totalCbm.toFixed(2)} m³</strong>. You need at least <strong>${OC_CBM_MIN} m³</strong> to submit.`;
+  } else if (totalCbm > OC_CBM_MAX) {
+    submitBtn.disabled      = true;
+    notice.style.display    = '';
+    notice.style.background = '#fff0f0';
+    notice.style.color      = '#c0392b';
+    notice.style.border     = '1px solid #f5c6c6';
+    notice.innerHTML = `⚠ Container exceeds capacity: <strong>${totalCbm.toFixed(2)} m³</strong>. Maximum is <strong>${OC_CBM_MAX} m³</strong>. Remove some items.`;
+  } else {
+    submitBtn.disabled      = false;
+    notice.style.display    = '';
+    notice.style.background = '#f0faf4';
+    notice.style.color      = '#1d6a3a';
+    notice.style.border     = '1px solid #a8d5b5';
+    notice.innerHTML = `✓ Container CBM is <strong>${totalCbm.toFixed(2)} m³</strong> — within the required ${OC_CBM_MIN}–${OC_CBM_MAX} m³ range.`;
+  }
+}
+
+function ocOvRemoveItem(variantId) {
+  _oc.items = _oc.items.filter(i => i.variantId !== variantId);
+  if (!_oc.items.length) { ocBackToBuilder(); return; }
+  _ocRenderOverview();
+  _ocRenderSummary();
+}
+
+/* ── Final submit ── */
+async function ocSubmit() {
+  if (!_oc.items.length) return;
+  const btn = document.getElementById('oc-submit-final-btn');
+  btn.disabled      = true;
+  btn.innerHTML     = `<div class="oc-spinner" style="border-color:rgba(255,255,255,.3);border-top-color:#fff;width:16px;height:16px;"></div> Submitting…`;
+
+  /* Simulate async — replace with real Supabase call when wiring up */
+  await new Promise(r => setTimeout(r, 1000));
+
+  document.getElementById('oc-overview').style.display = 'none';
+  document.getElementById('oc-idle').style.display     = '';
+
+  const idle = document.getElementById('oc-idle');
+  const banner = document.createElement('div');
+  banner.className = 'oc-success-banner';
+  banner.innerHTML = `
+    <div class="oc-success-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="oc-success-text">
+      <strong>Container order submitted!</strong>
+      <span>Your account manager will review and confirm within 4 business hours.</span>
+    </div>
+    <button onclick="this.closest('.oc-success-banner').remove()">✕</button>
+  `;
+  idle.insertAdjacentElement('beforebegin', banner);
+
+  btn.disabled  = false;
+  btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Confirm &amp; Submit Order`;
+  _oc = { step: 0, category: null, family: null, items: [] };
+}
+
+/* Trigger catalogue load when Order Container section opened */
+document.querySelectorAll('.sidebar-link[data-section="quotes"]').forEach(link => {
+  link.addEventListener('click', () => {
+    if (!_catalogueLoaded) { _catalogueLoaded = true; loadCatalogue(); }
+  });
 });
 </script>
 
